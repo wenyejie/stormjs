@@ -1,3 +1,4 @@
+const isDev = process.env.NODE_ENV === 'development'
 module.exports = {
   root: true,
   env: {
@@ -11,8 +12,8 @@ module.exports = {
     '@vue/typescript'
   ],
   rules: {
-    'no-console': 'off',
-    'no-debugger': 'off',
+    'no-console': isDev ? 'off' : 'on',
+    'no-debugger': isDev ? 'off' : 'on',
     'vue/attributes-order': 'error',
     'vue/html-quotes': 'error',
     'vue/no-confusing-v-for-v-if': 'error',
