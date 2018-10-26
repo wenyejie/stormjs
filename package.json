@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "publish": "vue-cli-service build --modern && ssh -i ../zqtest.pem ec2-user@52.82.38.197 rm -rf /data2/xxx/* && scp -i ../zqtest.pem -r ./dist/* ec2-user@52.82.38.197:/data2/xxx",
+    "login": "ssh -i ../zqtest.pem ec2-user@52.82.38.197"
   },
   "dependencies": {
     "axios": "^0.18.0",
