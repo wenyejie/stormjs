@@ -19,7 +19,7 @@ module.exports = {
   lintOnSave: 'error',
 
   devServer: {
-    port: 8888,
+    port: 8889,
     proxy: {
       '/api': {
         target: 'http://test.zhiqicloud.com:8770/',

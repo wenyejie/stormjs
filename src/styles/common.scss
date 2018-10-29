@@ -1,0 +1,87 @@
+@charset "utf-8";
+/**
+ * common
+ *
+ * author: Storm
+ * date: 2017/08/06
+ */
+@import "./variable";
+body {
+  font: 14px/1.5 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #444;
+  background-color: #eef0f4;
+  //-webkit-font-smoothing: antialiased;
+  //-moz-osx-font-smoothing: grayscale;
+}
+a {
+  color: $primary;
+  transition: all .3s ease;
+
+  &:hover {
+    color: $primaryLight;
+  }
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+
+  small {
+    color: #888;
+  }
+
+  a small {
+    color: #16c3f6;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+.s-table .s-icon {
+  margin-right: 15px;
+  font-size: 18px;
+  position: relative;
+  bottom: -2px;
+}
+.s-page {
+  padding: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+.s-empty {
+  min-height: 364px;
+  width: 100%;
+  text-align: center;
+  padding: 0 !important;
+
+  &:hover {
+    background-color: #fff !important;
+  }
+
+  &:before,
+  &:after {
+    display: block;
+  }
+
+  &:before {
+    content: '';
+    min-height: 217px;
+    min-width: 157px;
+    background: #fff url("../assets/empty.png") no-repeat center bottom;
+    background-size: 157px 121px;
+  }
+
+  &:after {
+    content: '无数据';
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 9px;
+    height: 147px;
+    color: #3a404a;
+    background-color: #fff;
+  }
+
+}
