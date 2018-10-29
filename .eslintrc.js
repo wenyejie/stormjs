@@ -1,4 +1,4 @@
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 module.exports = {
   root: true,
   env: {
@@ -8,12 +8,11 @@ module.exports = {
   },
   'extends': [
     'plugin:vue/strongly-recommended',
-    '@vue/standard',
-    '@vue/typescript'
+    '@vue/standard'
   ],
   rules: {
-    'no-console': isDev ? 0 : 1,
-    'no-debugger': isDev ? 0 : 1,
+    'no-console': 'off',
+    'no-debugger': 'off',
     'vue/attributes-order': 'error',
     'vue/html-quotes': 'error',
     'vue/no-confusing-v-for-v-if': 'error',
@@ -22,14 +21,9 @@ module.exports = {
     'vue/html-closing-bracket-newline': 'error',
     'vue/html-closing-bracket-spacing': 'error',
     'vue/no-use-v-if-with-v-for': 'error',
-    'vue/prop-name-casing': 'error',
-    'vue/script-indent': ['error', 2, {
-      'baseIndent': 0,
-      'switchCase': 1,
-      'ignores': []
-    }]
+    'vue/prop-name-casing': 'error'
   },
   parserOptions: {
-    parser: 'typescript-eslint-parser'
+    parser: 'babel-eslint'
   }
 }

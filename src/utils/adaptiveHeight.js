@@ -5,7 +5,7 @@
  * @date: 2018/02/09
  */
 
-import css from './css/index'
+import css from './css'
 
 // 复制元素
 let copyElement

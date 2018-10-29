@@ -11,7 +11,9 @@ module.exports = {
   productionSourceMap: isDev,
 
   css: {
-    modules: true,
+
+    // css
+    modules: false,
     sourceMap: isDev,
     extract: false
   },

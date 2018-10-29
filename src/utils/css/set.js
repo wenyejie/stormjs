@@ -7,6 +7,7 @@
  * @author: Storm
  * @date: 2018/02/09
  */
+// @ts-ignore
 import cb2cc from '../cb2cc'
 
 export default (element, attrName, attrValue) => {

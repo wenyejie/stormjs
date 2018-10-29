@@ -10,7 +10,7 @@ import cc2cb from './cc2cb'
  * @param obj
  * @returns {string}
  */
-export default obj => {
+export default (obj) => {
   let str = ''
   Object.keys(obj).forEach(key => {
     str += ' :' + cc2cb(key) + '="' + key + '"'

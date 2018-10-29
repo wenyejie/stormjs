@@ -9,4 +9,6 @@
  * @param str
  * @return {string}
  */
-export default str => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+export default (str) => {
+  return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}

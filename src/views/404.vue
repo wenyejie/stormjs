@@ -10,11 +10,10 @@
   </s-layout>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
+<script>
+export default {
   name: 'V404'
-})
+}
 </script>
 
 <style lang="scss" scoped>

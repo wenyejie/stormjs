@@ -5,4 +5,6 @@
  * @date: 2018/02/09
  */
 
-export default string => string.replace(/[-|_]([A-z])/g, (match, $1) => $1.toLocaleUpperCase())
+export default (string) => {
+  return string.replace(/[-|_]([A-z])/g, (match, $1) => $1.toLocaleUpperCase())
+}
