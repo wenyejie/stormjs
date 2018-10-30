@@ -20,13 +20,13 @@ const instance = axios.create({
     'X-zq-from-app': process.env.VUE_APP_X_ZQ_FROM_APP
   },
   transformRequest: [(data) => {
-    if (!serialize) {
+    if (serialize === false) {
       return JSON.stringify(data)
     }
     let ret = ''
     for (let it in data) {
       if (!data.hasOwnProperty(it) || data[it] === undefined || data[it] === null || Number.isNaN(data[it])) continue
-      if (!serialize) {
+      if (serialize === false) {
         ret += data[it]
         continue
       }
