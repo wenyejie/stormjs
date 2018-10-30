@@ -14,13 +14,13 @@ export default new Router({
     }, {
       path: '/login',
       name: 'RLogin',
-      component: () => import('../views/login.vue')
+      component: () => import('../views/Login.vue')
     },
 
     {
       path: '/demo',
       name: 'RDemo',
-      component: () => import('../views/demo.vue')
+      component: () => import('../views/Demo.vue')
     }, {
       path: '*',
       name: 'R404',

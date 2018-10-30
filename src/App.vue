@@ -8,14 +8,15 @@ export default {
   name: 'App',
   created () {
     // 当用户已登录, 并且在登录页时, 自动调回首页, 反正则自动调回登录页
+    const { name, query: { redirect }, fullPath } = this.$route
     if (this.$root.isLogin) {
-      if (this.$route.name === 'RLogin') this.$router.push('/')
+      if (name === 'RLogin') this.$router.push('/')
     } else {
-      if (this.$route.name !== 'RLogin') {
+      if (name !== 'RLogin') {
         this.$router.push({
           name: 'RLogin',
           query: {
-            redirect: encodeURI(this.$route.fullPath)
+            redirect: redirect || encodeURI(fullPath)
           }
         })
       }

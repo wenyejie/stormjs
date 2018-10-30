@@ -7,6 +7,7 @@
 <template>
   <s-layout>
     <h1>404</h1>
+    <p class="mt-20">该页面被黑洞吞没了! 快联系管理员.</p>
   </s-layout>
 </template>
 

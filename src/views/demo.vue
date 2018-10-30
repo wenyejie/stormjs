@@ -5,7 +5,7 @@
  - @date: 2018/08/23
  -->
 <template>
-  <div>DEMO</div>
+  <s-layout>DEMO</s-layout>
 </template>
 
 <script>
