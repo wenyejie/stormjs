@@ -5,32 +5,57 @@
  - @date: 2017/12/22
  -->
 <template>
-  <input
-    :type="type"
-    :name="name"
-    :title="title"
-    v-model="innerVal"
+  <div
     :class="classes"
-    :required="required"
-    :readonly="readonly"
-    :max="max"
-    :min="min"
-    :step="step"
-    :minlength="minlength"
-    :maxlength="maxlength"
-    :disabled="disabled"
-    :pattern="pattern"
-    :patternmsg="patternmsg"
-    :autocomplete="autocomplete"
-    class="s-input"
-    @input="handleInput($event)"
-    @change="handleChange($event)"
-    @keyup="handleKeyup($event)"
-    @keydown="handleKeydown($event)"
-    @focus="handleFocus($event)"
-    @mouseup="handleMouseup($event)"
-    @mousedown="handleMousedown($event)"
-    @blur="handleBlur($event)">
+    class="s-input">
+    <span
+      v-if="$slots.prepend"
+      class="s-input-prepend"><slot name="prepend" /></span>
+    <span
+      v-if="$slots.prefix || prefixicon"
+      class="s-input-prefix">
+      <slot name="prefix">
+        <s-icon
+          :type="prefixicon" />
+      </slot>
+    </span>
+    <input
+      :type="type"
+      :name="name"
+      :title="title"
+      v-model="innerVal"
+      :required="required"
+      :readonly="readonly"
+      :max="max"
+      :min="min"
+      :step="step"
+      :minlength="minlength"
+      :maxlength="maxlength"
+      :disabled="disabled"
+      :pattern="pattern"
+      :patternmsg="patternmsg"
+      :autocomplete="autocomplete"
+      class="s-input-inner"
+      @input="handleInput($event)"
+      @change="handleChange($event)"
+      @keyup="handleKeyup($event)"
+      @keydown="handleKeydown($event)"
+      @focus="handleFocus($event)"
+      @mouseup="handleMouseup($event)"
+      @mousedown="handleMousedown($event)"
+      @blur="handleBlur($event)">
+    <span
+      v-if="$slots.append"
+      class="s-input-append"><slot name="append" /></span>
+    <span
+      v-if="$slots.suffix || suffixicon"
+      class="s-input-suffix">
+      <slot name="suffix">
+        <s-icon
+          :type="suffixicon" />
+      </slot>
+    </span>
+  </div>
 </template>
 
 <script>
@@ -62,6 +87,18 @@ export default {
       }
     },
 
+    // 前置icon
+    prefixicon: {
+      type: String,
+      default: ''
+    },
+
+    // 后置icon
+    suffixicon: {
+      type: String,
+      default: ''
+    },
+
     // 块元素
     block: {
       type: Boolean,
@@ -79,18 +116,22 @@ export default {
     classes () {
       return {
         [`s-input-${this.size}`]: !!this.size,
-        [`s-input-block`]: !!this.block
+        [`s-input-block`]: !!this.block,
+        's-input_prefix': !!this.$slots.prefix || !!this.prefixicon,
+        's-input_suffix': !!this.$slots.suffix || !!this.suffixicon,
+        's-input_prepend': !!this.$slots.prepend,
+        's-input_append': !!this.$slots.append
       }
     }
   },
   watch: {
 
     /**
-         * 监听value变化
-         * @param val 值
-         * @param oldVal 旧值
-         * @return {boolean}
-         */
+     * 监听value变化
+     * @param val 值
+     * @param oldVal 旧值
+     * @return {boolean}
+     */
     value (val, oldVal) {
       if (val === oldVal || val === this.innerVal) return false
       this.innerVal = val
@@ -140,52 +181,133 @@ export default {
   .s-input {
     position: relative;
     display: inline-block;
-    line-height: 1;
-    padding: 7px 10px;
-    border-radius: 4px;
-    border: 1px #ddd solid;
-    transition: border-color .3s ease;
     font-size: $md;
+
+    &-inner {
+      border-radius: 4px;
+      border: 1px #ddd solid;
+      line-height: 1;
+      padding: 7px 10px;
+      transition: border-color .3s ease;
+      width: 100%;
+
+      &:focus:not([readonly]) {
+        border-color: $primary;
+      }
+
+      &:disabled {
+        background-color: #f5f5f5;
+        color: rgba(0, 0, 0, .25);
+      }
+
+      &[readonly] {
+        cursor: default;
+      }
+    }
+
+    &_prepend,
+    &_append {
+      line-height: normal;
+      display: inline-flex;
+
+      &.s-input-block {
+        display: flex;
+      }
+
+      .s-input {
+
+        &-inner {
+        }
+      }
+    }
+
+    &-prepend,
+    &-append {
+      background-color: #f5f7fa;
+      color: #909399;
+      position: relative;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      padding: 0 20px;
+      line-height: 36px;
+      white-space: nowrap;
+    }
+
+    &-prepend {
+      border-right: none;
+    }
+
+    &-append {
+      border-left: none;
+    }
+
+    &-prepend,
+    &_append > .s-input-inner {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &-prepend + &-inner,
+    &-append {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &_suffix {
+      .s-input-inner {
+        padding-right: 25px;
+      }
+    }
+
+    &_prefix {
+      .s-input-inner {
+        padding-left: 25px;
+      }
+    }
+
+    &-suffix,
+    &-prefix {
+      position: absolute;
+      top: 0;
+      line-height: 36px;
+      color: #c0c4cc;
+    }
+
+    &-suffix {
+      right: 8px;
+    }
+
+    &-prefix {
+      left: 8px;
+    }
 
     &[type="color"] {
       height: 40px;
     }
 
-    &:focus {
-      border-color: $primary;
-    }
-
-    &:disabled {
-      background-color: #f5f5f5;
-      color: rgba(0,0,0,.25);
-    }
-
-    /*&[readonly] {
-      cursor: default;
-
-      &:focus {
-        border-color: $lightGrey;
-      }
-    }*/
-
     &-block {
       display: block;
-      width: 100%;
     }
 
     &-lg {
       font-size: $lg;
-      padding: 12px 13px;
+      &-inner {
+        padding: 12px 13px;
+      }
     }
 
     &-sm {
       font-size: $sm;
-      padding: 4.5px 7px;
+      &-inner {
+        padding: 4.5px 7px;
+      }
     }
 
     &-xs {
       font-size: $xs;
-      padding: 0.5px 3px;
+      &-inner {
+        padding: 0.5px 3px;
+      }
     }
   }
 </style>
