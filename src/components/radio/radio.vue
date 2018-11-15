@@ -12,8 +12,6 @@
     <input
       :name="name"
       :checked="checked"
-      :true-value="trueValue"
-      :false-value="falseValue"
       :disabled="disabled"
       type="radio"
       class="s-radio-input"
@@ -70,8 +68,8 @@ export default {
   },
   computed: {
     /**
-         * className
-         */
+     * className
+     */
     classes () {
       return {
         [`s-radio-block`]: !!this.block,
@@ -80,7 +78,7 @@ export default {
     },
     // 判断是否为group
     isGroup () {
-      return this.parent.$options && this.parent.$options.name === 'SRadioGroup'
+      return this.parent && this.parent.$options && this.parent.$options.name === 'SRadioGroup'
     }
   },
   watch: {
@@ -107,9 +105,9 @@ export default {
   },
   methods: {
     /**
-         * 选中checkbox
-         * @param $event 选中值
-         */
+     * 选中checkbox
+     * @param $event 选中值
+     */
     handleChange ($event) {
       this.checked = $event.target.checked
       if (this.isGroup) {
@@ -119,15 +117,15 @@ export default {
       this.$emit('change', $event)
     },
     /**
-         * 点击radio
-         * @param $event 事件
-         */
+     * 点击radio
+     * @param $event 事件
+     */
     handleClick ($event) {
       this.$emit('click', $event)
     },
     /**
-         * 设置是否选中
-         */
+     * 设置是否选中
+     */
     setChecked () {
       if (this.isGroup) {
         this.checked = this.parent.value === this.value

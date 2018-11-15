@@ -10,8 +10,10 @@
 </template>
 
 <script>
+import formElementMixins from '../../mixins/formElementMixin'
 export default {
   name: 'SRadioGroup',
+  mixins: [formElementMixins],
   props: {
     value: {
       type: [String, Number, Object],
@@ -23,14 +25,21 @@ export default {
       innerVal: this.value
     }
   },
+  watch: {
+    value (val) {
+      if (val === this.innerVal) return
+      this.handleValidate()
+    }
+  },
   methods: {
     /**
-         * 更新group的值
-         * @param value 选中的值
-         */
+     * 更新group的值
+     * @param value 选中的值
+     */
     update (value) {
       this.innerVal = value
       this.$emit('input', this.innerVal)
+      this.handleValidate()
     }
   }
 }
