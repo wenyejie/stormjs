@@ -11,6 +11,7 @@ module.exports = {
     '@vue/standard'
   ],
   rules: {
+    'padded-blocks': 'off',
     'no-console': 'off',
     'no-debugger': 'off',
     'vue/html-quotes': 'error',
