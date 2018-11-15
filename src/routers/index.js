@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import demo from './demo'
+import example from './example'
 
 Vue.use(Router)
 
@@ -10,25 +10,25 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'RHome',
+      name: 'home',
       component: () => import('../views/Home.vue')
     },
 
-    demo,
+    example,
 
     {
       path: '/login',
-      name: 'RLogin',
+      name: 'login',
       component: () => import('../views/Login.vue')
     },
     {
       path: '/demo',
-      name: 'RDemo',
+      name: 'demo',
       component: () => import('../views/Demo.vue')
     },
     {
       path: '*',
-      name: 'R404',
+      name: '404',
       component: () => import('../views/404.vue')
     }
   ]

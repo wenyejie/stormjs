@@ -8,15 +8,20 @@
 import Main from '../views/demo/Main.vue'
 
 export default {
-  name: 'RDemo',
-  path: '/demo',
+  name: 'example',
+  path: '/example',
   component: Main,
   redirect: { name: 'RDemoInput' },
   children: [
     {
-      name: 'RDemoInput',
+      name: 'exampleInput',
       path: 'input',
       component: () => import('../views/demo/Input.vue')
+    },
+    {
+      name: 'exampleCrud',
+      path: 'crud',
+      component: () => import('../views/demo/crud.vue')
     }
   ]
 }
