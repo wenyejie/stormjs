@@ -33,7 +33,7 @@
       :maxlength="maxlength"
       :disabled="disabled"
       :pattern="pattern"
-      :patternmsg="patternmsg"
+      :placeholder="placeholder"
       :autocomplete="autocomplete"
       class="s-input-inner"
       @input="handleInput($event)"

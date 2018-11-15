@@ -74,6 +74,11 @@ export default {
       default: undefined
     },
 
+    placeholder: {
+      type: String,
+      default: ''
+    },
+
     // 正则提示语
     patternmsg: {
       type: String,
