@@ -16,20 +16,22 @@
         v-if="hasMask"
         v-model="hasMask"
         @click="handleMask"/>-->
-      <div class="s-dialog-content">
-        <a
-          v-if="hasClose"
-          class="s-dialog-close"
-          href="javascript:;"
-          @click="handleClose">
-          <s-icon type="close" />
-        </a>
+      <div
+        :style="styles"
+        class="s-dialog-content">
         <header
           v-if="$slots.header || title"
           class="s-dialog-header">
           <slot name="header">
             <h1 class="s-dialog-title">{{ title }}</h1>
           </slot>
+          <a
+            v-if="hasClose"
+            class="s-dialog-close"
+            href="javascript:;"
+            @click="handleClose">
+            <s-icon type="close" />
+          </a>
         </header>
         <div class="s-dialog-body">
           <slot>
@@ -99,11 +101,8 @@ export default {
 
     // 大小
     size: {
-      type: String,
-      default: undefined,
-      validator (val) {
-        return ['lg', 'md', 'sm', 'auto', 'fullscreen'].includes(val)
-      }
+      type: [String, Number],
+      default: undefined
     },
 
     shadow: {
@@ -190,51 +189,64 @@ export default {
   computed: {
 
     /**
-         * class name
-         * @return {Object}
-         */
+     * class name
+     * @return {Object}
+     */
     classes () {
       return {
-        [`s-dialog-${this.size}`]: !!this.size,
+        [`s-dialog-${this.size}`]: !!this.size && typeof this.size === 'string',
         [`s-dialog-${this.name}`]: !!this.name,
         [`s-dialog-align-${this.align}`]: !!this.align
       }
+    },
+
+    styles () {
+      const result = {}
+      if (typeof this.size === 'number') {
+        result.width = `${this.size}px`
+      }
+
+      return result
     }
   },
   watch: {
 
     /**
-         * 监听value值
-         * @param val 新值
-         * @param oldVal 旧值
-         */
+     * 监听value值
+     * @param val 新值
+     * @param oldVal 旧值
+     */
     value (val, oldVal) {
       // 如果新旧值相同, 则退出方法
       if (val === oldVal || val === this.visible) {
         return false
       }
       this.visible = val
+      elOverflowToggle(val)
     }
   },
   beforeDestroy () {
     elOverflowToggle(false)
   },
   created () {
-    elOverflowToggle(true)
+    if (this.value) {
+      elOverflowToggle(true)
+    }
   },
   methods: {
 
     /**
-         * 移除dialog
-         */
+     * 移除dialog
+     */
     remove () {
       this.visible = false
+      elOverflowToggle(false)
       this.$emit('input', false)
     },
 
     /**
-         * 弹出框操作
-         */
+     * 弹出框操作
+     */
     handleMask () {
       // 是否可以通过背景移除弹出框
       if (this.maskRemove) {
@@ -244,24 +256,24 @@ export default {
     },
 
     /**
-         * 取消事件
-         */
+     * 取消事件
+     */
     handleCancel () {
       this.$emit('cancel')
       this.remove()
     },
 
     /**
-         * 确定时间
-         */
+     * 确定时间
+     */
     handleOk () {
       this.$emit('ok')
       this.isOkClose && this.remove()
     },
 
     /**
-         * 关闭事件
-         */
+     * 关闭事件
+     */
     handleClose () {
       this.$emit('close')
       this.remove()
