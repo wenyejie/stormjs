@@ -142,6 +142,23 @@ export default {
       }
     }
 
+    &-btn {
+      color: #bdbdbe;
+
+      a {
+        margin-left: 12px;
+        margin-right: 12px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
     &-lg {
       th,
       td {
