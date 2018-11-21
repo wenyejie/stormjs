@@ -17,11 +17,11 @@
       <span v-show="asideVisible === 1">CMDB平台</span>
     </router-link>
     <nav class="aside-nav">
+      <!-- v-if="permission.includes(item.id)" -->
       <s-menu :simple="asideVisible === 2">
         <template
           v-for="(item, index) in navigates">
           <s-menu-item
-            v-if="permission.includes(item.id)"
             :icon="item.icon"
             :name="item.name"
             :title="item.title"
@@ -31,7 +31,6 @@
             <s-submenu v-if="item.children">
               <template v-for="(subitem, subindex) in item.children">
                 <s-menu-item
-                  v-if="permission.includes(item.id)"
                   :name="subitem.name"
                   :title="subitem.title"
                   :key="subindex"
