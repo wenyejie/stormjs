@@ -55,6 +55,12 @@ const assign = (str, obj) => {
 export default {
   props: {
 
+    // 是否为表单元素, 适用于form, formItem组件
+    isForm: {
+      type: Boolean,
+      default: true
+    },
+
     disabled: Boolean,
 
     readonly: Boolean,
@@ -72,11 +78,6 @@ export default {
     pattern: {
       type: [String, RegExp],
       default: undefined
-    },
-
-    placeholder: {
-      type: String,
-      default: ''
     },
 
     // 正则提示语
@@ -135,7 +136,8 @@ export default {
      */
     handleValidate () {
       const $el = this.$el
-      if (!this.isFormElm || !this.name) return
+      if (!this.isFormElm || !this.name || !this.isForm) return
+
       if (!$el.validity) {
         this.handleAutoValidate()
       }
