@@ -22,6 +22,11 @@ export default {
       name: 'exampleCrud',
       path: 'crud',
       component: () => import('../views/demo/crud.vue')
+    },
+    {
+      name: 'exampleCharts',
+      path: 'charts',
+      component: () => import('../views/demo/charts.vue')
     }
   ]
 }

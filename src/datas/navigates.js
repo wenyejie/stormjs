@@ -19,6 +19,14 @@ export default [
       {
         title: 'Input',
         name: 'exampleInput'
+      },
+      {
+        title: 'Crud',
+        name: 'exampleCrud'
+      },
+      {
+        title: 'Charts',
+        name: 'exampleCharts'
       }
     ]
   }
