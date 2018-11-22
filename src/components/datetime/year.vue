@@ -5,18 +5,20 @@
  - @date: 2018/07/31
  -->
 <template>
-  <section class="s-datePicker-content">
-    <header class="s-datePicker-header">
+  <section class="s-datetime">
+    <header class="s-datetime-header">
       <button
-        class="s-datePicker-btn prev"
-        @click="handlePrev">«</button>
-      <span class="s-datePicker-label">{{ list[0][0] }} 年 - {{ list[0][0] + 10 }} 年</span>
+        class="s-datetime-btn prev"
+        @click="handlePrev">«
+      </button>
+      <span class="s-datetime-label">{{ list[0][0] }} 年 - {{ list[0][0] + 10 }} 年</span>
       <button
-        class="s-datePicker-btn next"
-        @click="handleNext">»</button>
+        class="s-datetime-btn next"
+        @click="handleNext">»
+      </button>
     </header>
-    <div class="s-datePicker-body">
-      <table class="s-datePicker-table year">
+    <div class="s-datetime-body">
+      <table class="s-datetime-table year">
         <tbody>
           <tr
             v-for="(item, index) in list"
@@ -30,20 +32,22 @@
         </tbody>
       </table>
     </div>
-    <footer class="s-datePicker-footer">
+    <footer
+      v-if="footer"
+      class="s-datetime-footer">
       <button
         type="button"
-        class="s-datePicker-btn cancel"
+        class="s-datetime-btn cancel"
         @click="handleCancel">取消
       </button>
       <button
         type="button"
-        class="s-datePicker-btn now"
+        class="s-datetime-btn now"
         @click="handleNow">现在
       </button>
       <button
         type="button"
-        class="s-datePicker-btn ok"
+        class="s-datetime-btn ok"
         @click="handleOk">确定
       </button>
     </footer>
@@ -52,21 +56,15 @@
 
 <script>
 import getYears from './getYears'
+import datetimeMixin from '../../mixins/datetimeMixin'
 
 export default {
   name: 'SYearPicker',
+  mixins: [datetimeMixin],
   props: {
-    value: {
-      type: Date,
-      default: undefined
-    },
-    min: {
-      type: Date,
-      default: undefined
-    },
-    max: {
-      type: Date,
-      default: undefined
+    isFooter: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -96,6 +94,7 @@ export default {
       this.innerVal = new Date(this.innerVal)
       this.$emit('input', this.innerVal)
       this.$emit('mode', 1)
+      this.$emit('month')
     },
 
     handlePrev () {
@@ -132,8 +131,8 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../../styles/variable.scss";
-  .s-datePicker-table.year {
+  @import "../../styles/datetime.scss";
+  .s-datetime-table.year {
     td {
       padding: 16px 0;
     }

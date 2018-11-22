@@ -5,15 +5,18 @@
  - @date: 2018/08/23
  -->
 <template>
-  <s-layout>DEMO</s-layout>
+  <s-layout>{{ demo | trimRight }}</s-layout>
 </template>
 
 <script>
+import trimRight from '../filters/trimRight'
+
 export default {
   name: 'VDemo',
+  filters: { trimRight },
   data () {
     return {
-      demo: ''
+      demo: '  2121  '
     }
   },
   watch: {

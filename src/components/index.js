@@ -36,6 +36,10 @@ import sTree from './tree'
 import { sRadio, sRadioGroup } from './radio'
 import sPopover from './popover'
 import sUpload from './upload'
+import sDateTimePicker from './dateTimePicker'
+import sDropdown from './dropdown'
+import sDate from './datetime/date.vue'
+import sTime from './datetime/time.vue'
 
 const components = {
   sLayout,
@@ -76,7 +80,11 @@ const components = {
   sRadio,
   sRadioGroup,
   sPopover,
-  sUpload
+  sUpload,
+  sDateTimePicker,
+  sDropdown,
+  sDate,
+  sTime
 }
 
 const install = (Vue) => {

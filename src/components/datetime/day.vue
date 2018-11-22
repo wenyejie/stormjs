@@ -5,34 +5,39 @@
  - @date: 2018/07/31
  -->
 <template>
-  <section class="s-datePicker-content">
-    <header class="s-datePicker-header">
+  <section class="s-datetime">
+    <header class="s-datetime-header">
       <button
-        class="s-datePicker-btn prev"
-        @click="handlePrevYear">«</button>
+        class="s-datetime-btn prev"
+        @click="handlePrevYear">«
+      </button>
       <button
-        class="s-datePicker-btn prev"
-        @click="handlePrevMonth">‹</button>
+        class="s-datetime-btn prev"
+        @click="handlePrevMonth">‹
+      </button>
       <span
-        class="s-datePicker-label"
+        class="s-datetime-label"
         @click="handleYear">{{ (innerVal || new Date()) | date('YYYY') }}年</span>
       <span
-        class="s-datePicker-label"
+        class="s-datetime-label"
         @click="handleMonth">{{ (innerVal || new Date()) | date('M') }}月</span>
       <button
-        class="s-datePicker-btn next"
-        @click="handleNextYear">»</button>
+        class="s-datetime-btn next"
+        @click="handleNextYear">»
+      </button>
       <button
-        class="s-datePicker-btn next"
-        @click="handleNextMonth">›</button>
+        class="s-datetime-btn next"
+        @click="handleNextMonth">›
+      </button>
     </header>
-    <div class="s-datePicker-body">
-      <table class="s-datePicker-table day">
+    <div class="s-datetime-body">
+      <table class="s-datetime-table day">
         <thead>
           <tr>
             <th
               v-for="item in weeks"
-              :key="item">{{ item }}</th>
+              :key="item">{{ item }}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -49,20 +54,22 @@
         </tbody>
       </table>
     </div>
-    <footer class="s-datePicker-footer">
+    <footer
+      v-if="footer"
+      class="s-datetime-footer">
       <button
         type="button"
-        class="s-datePicker-btn cancel"
+        class="s-datetime-btn cancel"
         @click="handleCancel">取消
       </button>
       <button
         type="button"
-        class="s-datePicker-btn now"
+        class="s-datetime-btn now"
         @click="handleToday">今天
       </button>
       <button
         type="button"
-        class="s-datePicker-btn ok"
+        class="s-datetime-btn ok"
         @click="handleOk">确定
       </button>
     </footer>
@@ -72,15 +79,13 @@
 <script>
 import date from '../../filters/date'
 import getDays from './getDays'
+import datetimeMixin from '../../mixins/datetimeMixin'
 
 export default {
-  name: 'SDatePickerDay',
+  name: 'SDay',
   filters: { date },
+  mixins: [datetimeMixin],
   props: {
-    value: {
-      type: Date,
-      default: undefined
-    },
     weeks: {
       type: Array,
       default () {
@@ -88,13 +93,9 @@ export default {
       },
       validator: val => val.length === 7
     },
-    min: {
-      type: Date,
-      default: undefined
-    },
-    max: {
-      type: Date,
-      default: undefined
+    footer: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -125,22 +126,24 @@ export default {
   methods: {
 
     /**
-         * 点击月份变更模式
-         */
+     * 点击月份变更模式
+     */
     handleMonth () {
       this.$emit('mode', 1)
+      this.$emit('month')
     },
 
     /**
-         * 点击年份变更模式
-         */
+     * 点击年份变更模式
+     */
     handleYear () {
       this.$emit('mode', 2)
+      this.$emit('year')
     },
 
     /**
-         * 点击上一年按钮
-         */
+     * 点击上一年按钮
+     */
     handlePrevYear () {
       const date = this.innerVal || new Date()
       const day = date.getDate()
@@ -154,8 +157,8 @@ export default {
     },
 
     /**
-         * 点击上一月事件
-         */
+     * 点击上一月事件
+     */
     handlePrevMonth () {
       const date = this.innerVal || new Date()
       const day = date.getDate()
@@ -166,8 +169,8 @@ export default {
     },
 
     /**
-         * 点击下一年事件
-         */
+     * 点击下一年事件
+     */
     handleNextYear () {
       const date = this.innerVal || new Date()
       const day = date.getDate()
@@ -181,8 +184,8 @@ export default {
     },
 
     /**
-         * 点击下个月按钮
-         */
+     * 点击下个月按钮
+     */
     handleNextMonth () {
       const date = this.innerVal || new Date()
       const day = date.getDate()
@@ -194,20 +197,20 @@ export default {
     },
 
     /**
-         * 天数的样式
-         * @param selected 是否选中
-         * @param other 是否是其它月份
-         * @param disabled 是否禁用
-         * @param today 是否今天
-         */
+     * 天数的样式
+     * @param selected 是否选中
+     * @param other 是否是其它月份
+     * @param disabled 是否禁用
+     * @param today 是否今天
+     */
     dayClasses ({ selected, other, disabled, today }) {
       return { other, disabled, today, selected }
     },
 
     /**
-         * 点击天数
-         * @param subitem
-         */
+     * 点击天数
+     * @param subitem
+     */
     handleDay (subitem) {
       const date = this.innerVal || new Date()
       if (subitem.disabled || subitem.selected) return
@@ -230,8 +233,8 @@ export default {
     },
 
     /**
-         * 构建月份天数
-         */
+     * 构建月份天数
+     */
     buildDays () {
       this.list = getDays(this.innerVal, { min: this.min, max: this.max })
       const week = this.list.find(item => item.find(subitem => subitem.selected))
@@ -239,24 +242,24 @@ export default {
     },
 
     /**
-         * 取消方法, 移除当前选中
-         */
+     * 取消方法, 移除当前选中
+     */
     handleCancel () {
       this.innerVal = this.oldValue
       this.handleInput()
     },
 
     /**
-         * 选中今天
-         */
+     * 选中今天
+     */
     handleToday () {
       this.innerVal = new Date()
       this.handleInput()
     },
 
     /**
-         * 确定方法
-         */
+     * 确定方法
+     */
     handleOk () {
       this.handleInput()
     }
@@ -265,8 +268,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../../styles/variable.scss";
-  .s-datePickerDay {
-
-  }
+  @import "../../styles/datetime.scss";
 </style>

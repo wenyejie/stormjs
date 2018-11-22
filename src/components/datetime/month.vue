@@ -5,20 +5,20 @@
  - @date: 2018/07/31
  -->
 <template>
-  <section class="s-datePicker-content">
-    <header class="s-datePicker-header">
+  <section class="s-datetime">
+    <header class="s-datetime-header">
       <button
-        class="s-datePicker-btn prev"
+        class="s-datetime-btn prev"
         @click="handlePrevYear">«</button>
       <span
-        class="s-datePicker-label"
+        class="s-datetime-label"
         @click="handleYear">{{ (innerVal || new Date()) | date('YYYY') }}年</span>
       <button
-        class="s-datePicker-btn next"
+        class="s-datetime-btn next"
         @click="handleNextYear">»</button>
     </header>
-    <div class="s-datePicker-body">
-      <table class="s-datePicker-table month">
+    <div class="s-datetime-body">
+      <table class="s-datetime-table month">
         <tbody>
           <tr
             v-for="(item, index) in list"
@@ -33,20 +33,22 @@
         </tbody>
       </table>
     </div>
-    <footer class="s-datePicker-footer">
+    <footer
+      v-if="footer"
+      class="s-datetime-footer">
       <button
         type="button"
-        class="s-datePicker-btn cancel"
+        class="s-datetime-btn cancel"
         @click="handleCancel">取消
       </button>
       <button
         type="button"
-        class="s-datePicker-btn now"
+        class="s-datetime-btn now"
         @click="handleNow">现在
       </button>
       <button
         type="button"
-        class="s-datePicker-btn ok"
+        class="s-datetime-btn ok"
         @click="handleOk">确定
       </button>
     </footer>
@@ -57,22 +59,16 @@
 import date from '../../filters/date'
 import getMonths from './getMonths'
 import month2cn from '../../filters/month2cn'
+import datetimeMixin from '../../mixins/datetimeMixin'
 
 export default {
   name: 'SMonthPicker',
   filters: { date, month2cn },
+  mixins: [datetimeMixin],
   props: {
-    value: {
-      type: Date,
-      default: undefined
-    },
-    min: {
-      type: Date,
-      default: undefined
-    },
-    max: {
-      type: Date,
-      default: undefined
+    footer: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -108,10 +104,12 @@ export default {
       this.innerVal = new Date(this.innerVal)
       this.$emit('input', this.innerVal)
       this.$emit('mode', 0)
+      this.$emit('day')
     },
 
     handleYear () {
       this.$emit('mode', 2)
+      this.$emit('year')
     },
 
     handlePrevYear () {
@@ -148,8 +146,8 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../../styles/variable.scss";
-  .s-datePicker-table.month {
+  @import "../../styles/datetime.scss";
+  .s-datetime-table.month {
     td {
       padding: 16px 0;
     }
