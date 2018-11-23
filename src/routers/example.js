@@ -24,6 +24,11 @@ export default {
       component: () => import('../views/demo/crud.vue')
     },
     {
+      name: 'exampleGrid',
+      path: 'grid',
+      component: () => import('../views/demo/grid.vue')
+    },
+    {
       name: 'exampleCharts',
       path: 'charts',
       component: () => import('../views/demo/charts.vue')

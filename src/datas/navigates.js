@@ -25,6 +25,10 @@ export default [
         name: 'exampleCrud'
       },
       {
+        title: 'Grid',
+        name: 'exampleGrid'
+      },
+      {
         title: 'Charts',
         name: 'exampleCharts'
       }
