@@ -74,6 +74,120 @@
         <s-col />
       </s-row>
     </s-panel>
+
+    <s-panel title="Span">
+      <s-row>
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+        <s-col :span="1" />
+      </s-row>
+      <s-row>
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+        <s-col :span="2" />
+      </s-row>
+      <s-row>
+        <s-col :span="3" />
+        <s-col :span="3" />
+        <s-col :span="3" />
+        <s-col :span="3" />
+        <s-col :span="3" />
+        <s-col :span="3" />
+        <s-col :span="3" />
+        <s-col :span="3" />
+      </s-row>
+      <s-row>
+        <s-col :span="4" />
+        <s-col :span="4" />
+        <s-col :span="4" />
+        <s-col :span="4" />
+        <s-col :span="4" />
+        <s-col :span="4" />
+      </s-row>
+      <s-row>
+        <s-col :span="6" />
+        <s-col :span="6" />
+        <s-col :span="6" />
+        <s-col :span="6" />
+      </s-row>
+      <s-row>
+        <s-col :span="8" />
+        <s-col :span="8" />
+        <s-col :span="8" />
+      </s-row>
+      <s-row>
+        <s-col :span="12" />
+        <s-col :span="12" />
+      </s-row>
+      <s-row>
+        <s-col :span="24" />
+      </s-row>
+    </s-panel>
+
+    <s-panel title="Gutter">
+      <s-row
+        style="border: none;"
+        :gutter="24">
+        <s-col
+          style="background-color: transparent; border: none; padding-top: 0; padding-bottom: 0;"
+          :span="8">
+          <div class="demo" />
+        </s-col>
+        <s-col
+          style="background-color: transparent; border: none; padding-top: 0; padding-bottom: 0;"
+          :span="8">
+          <div class="demo" />
+        </s-col>
+        <s-col
+          style="background-color: transparent; border: none; padding-top: 0; padding-bottom: 0;"
+          :span="8">
+          <div class="demo" />
+        </s-col>
+      </s-row>
+    </s-panel>
+
+    <s-panel title="wrap 换行">
+      <s-row wrap>
+        <s-col :span="8" />
+        <s-col :span="8" />
+        <s-col :span="8" />
+        <s-col :span="8" />
+        <s-col :span="8" />
+        <s-col :span="8" />
+        <s-col :span="8" />
+      </s-row>
+    </s-panel>
+
   </s-layout>
 </template>
 
@@ -84,6 +198,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .demo {
+    border-radius: 2px;
+    height: 30px;
+    background-color: #eee;
+    text-align: center;
+    line-height: 30px;
+    color: #aaa;
+  }
   .align {
     height: 100px;
   }
