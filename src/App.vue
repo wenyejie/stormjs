@@ -10,11 +10,11 @@ export default {
     // 当用户已登录, 并且在登录页时, 自动调回首页, 反正则自动调回登录页
     const { name, query: { redirect }, fullPath } = this.$route
     if (this.$root.isLogin) {
-      if (name === 'RLogin') this.$router.push('/')
+      if (name === 'login') this.$router.push('/')
     } else {
-      if (name !== 'RLogin') {
+      if (name !== 'login') {
         this.$router.push({
-          name: 'RLogin',
+          name: 'login',
           query: {
             redirect: redirect || encodeURI(fullPath)
           }
