@@ -31,6 +31,10 @@ export default [
       {
         title: 'Charts',
         name: 'exampleCharts'
+      },
+      {
+        title: 'Tab',
+        name: 'exampleTab'
       }
     ]
   }
