@@ -9,7 +9,9 @@
     v-show="!hidden ? visible : true"
     v-if="hidden ? visible: true"
     :class="classes"
-    class="s-tab-item"><slot /></div>
+    class="s-tab-item">
+    <slot />
+  </div>
 </template>
 
 <script>
@@ -49,17 +51,17 @@ export default {
     },
     classes () {
       return {
-        [`on`]: this.innerName === this.$parent.activeName
+        's-tab-active': this.innerName === this.$parent.activeName
       }
     }
   },
   watch: {
 
     /**
-         * 监听父元素的uid值
-         * @param val
-         * @param oldVal
-         */
+     * 监听父元素的uid值
+     * @param val
+     * @param oldVal
+     */
     '$parent.activeName' (val, oldVal) {
       if (val === oldVal) return
       this.visible = val === this.innerName

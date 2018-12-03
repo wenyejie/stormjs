@@ -5,12 +5,14 @@
  - @date: 2018/02/27
  -->
 <template>
-  <div class="s-tab">
+  <div
+    class="s-tab"
+    :class="classes">
     <ul class="s-tab-nav">
       <li
         v-for="item in list"
         :key="item.name"
-        :class="item.name === activeName ? 'on' : ''"
+        :class="item.name === activeName ? 's-tab-active' : ''"
         class="s-tab-nav-item"
         @click="toggle(item)"
         v-html="item.label" />
@@ -22,6 +24,8 @@
 </template>
 
 <script>
+import isTrue from '../../utils/isTrue'
+
 export default {
   name: 'STab',
   props: {
@@ -51,12 +55,42 @@ export default {
     name: {
       type: String,
       default: 'tab'
+    },
+
+    // 主题
+    type: {
+      type: String,
+      default: ''
+    },
+
+    // 对齐方式
+    align: {
+      type: String,
+      default: 'start',
+      validator (val) {
+        return ['start', 'center', 'end'].includes(val)
+      }
+    },
+
+    // padding
+    padding: {
+      type: [Boolean, String],
+      default: true
     }
   },
   data () {
     return {
       list: [],
       activeName: undefined
+    }
+  },
+  computed: {
+    classes () {
+      return {
+        [`s-tab-${this.direction}`]: !!this.direction,
+        [`s-tab-${this.type}`]: !!this.type,
+        's-tab-padding': isTrue(this.padding)
+      }
     }
   },
   watch: {
@@ -68,10 +102,10 @@ export default {
   methods: {
 
     /**
-         * 切换
-         * @param item
-         * @return {undefined}
-         */
+     * 切换
+     * @param item
+     * @return {undefined}
+     */
     toggle (item) {
       if (this.activeName === item.name) return
       this.activeName = item.name
@@ -79,9 +113,9 @@ export default {
     },
 
     /**
-         * 增加子项
-         * @param item
-         */
+     * 增加子项
+     * @param item
+     */
     addItem (item) {
       this.list.push(item)
       if (this.list.length === 1) {
@@ -90,9 +124,9 @@ export default {
     },
 
     /**
-         * 移除子项
-         * @param name
-         */
+     * 移除子项
+     * @param name
+     */
     removeItem (name) {
       const index = this.list.findIndex(item => item.name === name)
 
@@ -107,31 +141,76 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-tab {
 
     &-nav {
-      position: relative;
-      display: flex;
-      padding: 16px 24px;
+      background-color: #fff;
 
       &-item {
         color: #8391a5;
-        font-size: 16px;
-        line-height: 22px;
         cursor: pointer;
-        transition: color .3s ease-in-out;
+        padding: 12px 24px;
+        transition: all .3s ease-in-out;
 
         &:hover {
-          color: $default;
+          cursor: pointer;
+          color: #0facf3;
         }
 
-        &.on {
+        &.s-tab-active {
           color: #0facf3;
           cursor: default;
         }
+      }
+    }
 
-        & + & {
-          margin-left: 48px;
+    &-padding {
+      .s-tab {
+        &-item {
+          padding: 12px 24px;
+        }
+      }
+    }
+
+    &-horizontal {
+      .s-tab {
+        &-nav {
+          display: flex;
+          border-bottom: 1px solid #eaeefb;
+
+          &-item {
+            border-bottom: 1px solid transparent;
+            margin-bottom: -1px;
+
+            &.s-tab-active {
+              border-bottom-color: #0facf3;
+            }
+          }
+        }
+      }
+    }
+
+    &-vertical {
+      display: flex;
+
+      .s-tab {
+
+        &-nav {
+          border-right: 1px solid #eaeefb;
+
+          &-item {
+            border-right: 1px solid transparent;
+            margin-right: -1px;
+
+            &.s-tab-active {
+              border-right-color: #0facf3;
+            }
+          }
+        }
+
+        &-content {
+          flex: 1;
         }
       }
     }
