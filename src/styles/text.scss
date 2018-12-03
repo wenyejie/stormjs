@@ -30,7 +30,7 @@
     @include text-wrap;
   }
 
-  &--ellipsis {
+  &-ellipsis {
     @include text-ellipsis;
   }
 }
