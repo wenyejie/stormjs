@@ -29,13 +29,16 @@ export default {
     const content = h('div', {
       staticClass: 's-tab-content'
     }, this.$slots.default)
+    let children
+    if (this.position === 'right' || this.position === 'bottom') {
+      children = [content, nav]
+    } else {
+      children = [nav, content]
+    }
     return h('div', {
       'class': this.classes,
       staticClass: 's-tab'
-    }, [
-      nav,
-      content
-    ])
+    }, children)
   },
   props: {
 
@@ -46,11 +49,11 @@ export default {
     },
 
     // 方向
-    direction: {
+    position: {
       type: String,
-      default: 'horizontal',
+      default: 'top',
       validator (val) {
-        return ['horizontal', 'vertical'].includes(val)
+        return ['top', 'right', 'bottom', 'left'].includes(val)
       }
     },
 
@@ -96,7 +99,7 @@ export default {
   computed: {
     classes () {
       return {
-        [`s-tab-${this.direction}`]: !!this.direction,
+        [`s-tab-${this.position}`]: !!this.position,
         [`s-tab-${this.type}`]: !!this.type,
         's-tab-padding': isTrue(this.padding)
       }

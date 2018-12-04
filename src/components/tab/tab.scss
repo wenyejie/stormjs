@@ -31,7 +31,8 @@
     }
   }
 
-  &-horizontal {
+  &-bottom,
+  &-top {
     .s-tab {
       &-nav {
         display: flex;
@@ -49,7 +50,8 @@
     }
   }
 
-  &-vertical {
+  &-right,
+  &-left {
     display: flex;
 
     .s-tab {

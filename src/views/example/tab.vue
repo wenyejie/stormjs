@@ -13,10 +13,35 @@
         <s-tab-item label="THREE">THREE</s-tab-item>
       </s-tab>
     </s-panel>
-    <s-panel title="vertical 垂直">
+    <s-panel title="Position 定位">
+      <h3>Top</h3>
       <s-tab
         class="tab-wrap"
-        direction="vertical">
+        position="top">
+        <s-tab-item label="ONE">ONE</s-tab-item>
+        <s-tab-item label="TWO">TWO</s-tab-item>
+        <s-tab-item label="THREE">THREE</s-tab-item>
+      </s-tab>
+      <h3>Right</h3>
+      <s-tab
+        class="tab-wrap"
+        position="right">
+        <s-tab-item label="ONE">ONE</s-tab-item>
+        <s-tab-item label="TWO">TWO</s-tab-item>
+        <s-tab-item label="THREE">THREE</s-tab-item>
+      </s-tab>
+      <h3>Bottom</h3>
+      <s-tab
+        class="tab-wrap"
+        position="bottom">
+        <s-tab-item label="ONE">ONE</s-tab-item>
+        <s-tab-item label="TWO">TWO</s-tab-item>
+        <s-tab-item label="THREE">THREE</s-tab-item>
+      </s-tab>
+      <h3>Left</h3>
+      <s-tab
+        class="tab-wrap"
+        position="left">
         <s-tab-item label="ONE">ONE</s-tab-item>
         <s-tab-item label="TWO">TWO</s-tab-item>
         <s-tab-item label="THREE">THREE</s-tab-item>
