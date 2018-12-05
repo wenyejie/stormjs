@@ -8,15 +8,18 @@
   <div
     class="s-tab"
     :class="classes">
-    <ul class="s-tab-nav">
-      <li
-        v-for="item in list"
-        :key="item.name"
-        :class="item.name === activeName ? 's-tab-active' : ''"
-        class="s-tab-nav-item"
-        @click="toggle(item)"
-        v-html="item.label" />
-    </ul>
+    <div class="s-tab-header">
+      <ul class="s-tab-nav">
+        <li
+          v-for="item in list"
+          :key="item.name"
+          :class="item.name === activeName ? 's-tab-active' : ''"
+          class="s-tab-nav-item"
+          @click="toggle(item)"
+          v-html="item.label" />
+      </ul>
+      <slot name="header" />
+    </div>
     <div class="s-tab-content">
       <slot />
     </div>
@@ -37,11 +40,11 @@ export default {
     },
 
     // 方向
-    direction: {
+    position: {
       type: String,
-      default: 'horizontal',
+      default: 'top',
       validator (val) {
-        return ['horizontal', 'vertical'].includes(val)
+        return ['top', 'right', 'bottom', 'left'].includes(val)
       }
     },
 
@@ -64,11 +67,11 @@ export default {
     },
 
     // 对齐方式
-    align: {
+    justify: {
       type: String,
-      default: 'start',
+      default: '',
       validator (val) {
-        return ['start', 'center', 'end'].includes(val)
+        return ['', 'start', 'center', 'end', 'around', 'between', 'evenly'].includes(val)
       }
     },
 
@@ -87,9 +90,10 @@ export default {
   computed: {
     classes () {
       return {
-        [`s-tab-${this.direction}`]: !!this.direction,
+        [`s-tab-${this.position}`]: !!this.position,
         [`s-tab-${this.type}`]: !!this.type,
-        's-tab-padding': isTrue(this.padding)
+        's-tab-padding': isTrue(this.padding),
+        [`s-tab-justify-${this.justify}`]: !!this.justify
       }
     }
   },
@@ -173,7 +177,8 @@ export default {
       }
     }
 
-    &-horizontal {
+    &-bottom,
+    &-top {
       .s-tab {
         &-nav {
           display: flex;
@@ -191,7 +196,17 @@ export default {
       }
     }
 
-    &-vertical {
+    &-bottom {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    &-right {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
+    &-left {
       display: flex;
 
       .s-tab {
@@ -214,5 +229,56 @@ export default {
         }
       }
     }
+
+    &-right {
+      display: flex;
+
+      .s-tab {
+
+        &-nav {
+          border-left: 1px solid #eaeefb;
+
+          &-item {
+            border-left: 1px solid transparent;
+            margin-left: -1px;
+
+            &.s-tab-active {
+              border-left-color: #0facf3;
+            }
+          }
+        }
+
+        &-content {
+          flex: 1;
+        }
+      }
+    }
+
+    &-justify {
+      &-start .s-tab-nav {
+        justify-content: flex-start;
+      }
+
+      &-center .s-tab-nav {
+        justify-content: center;
+      }
+
+      &-end .s-tab-nav {
+        justify-content: flex-end;
+      }
+
+      &-around .s-tab-nav {
+        justify-content: space-around;
+      }
+
+      &-between .s-tab-nav {
+        justify-content: space-between;
+      }
+
+      &-evenly .s-tab-nav {
+        justify-content: space-evenly;
+      }
+    }
   }
+
 </style>

@@ -10,9 +10,9 @@
 
 <style lang="scss">
   h3 {
-    margin-top: 30px;
+    margin-top: 36px;
     padding-left: 24px;
-    padding-bottom: 24px;
+    padding-bottom: 12px;
     font-weight: bold;
     border-bottom: 1px solid #eaeefb;
   }

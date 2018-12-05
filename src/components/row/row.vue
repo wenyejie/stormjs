@@ -33,7 +33,7 @@ export default {
       type: String,
       default: undefined,
       validator (val) {
-        return ['left', 'right', 'center', 'between', 'around'].includes(val)
+        return ['start', 'center', 'end', 'around', 'between', 'evenly'].includes(val)
       }
     },
 
@@ -88,6 +88,9 @@ export default {
     }
     &-justify-around {
       justify-content: space-around;
+    }
+    &-justify-evenly {
+      justify-content: space-evenly;
     }
     &-align-top {
       align-items: flex-start;

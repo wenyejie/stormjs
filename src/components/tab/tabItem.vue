@@ -34,7 +34,13 @@ export default {
     // 标题
     label: {
       type: String,
-      required: true
+      default: ''
+    },
+
+    // 图标
+    icon: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -77,7 +83,8 @@ export default {
   mounted () {
     this.$parent.addItem({
       name: this.innerName,
-      label: this.label
+      label: this.label,
+      icon: this.icon
     })
   },
   beforeDestroy () {

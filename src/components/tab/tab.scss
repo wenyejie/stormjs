@@ -50,7 +50,6 @@
     }
   }
 
-  &-right,
   &-left {
     display: flex;
 
@@ -72,6 +71,43 @@
       &-content {
         flex: 1;
       }
+    }
+  }
+
+  &-right {
+    display: flex;
+
+    .s-tab {
+
+      &-nav {
+        border-left: 1px solid #eaeefb;
+
+        &-item {
+          border-left: 1px solid transparent;
+          margin-left: -1px;
+
+          &.s-tab-active {
+            border-left-color: #0facf3;
+          }
+        }
+      }
+
+      &-content {
+        flex: 1;
+      }
+    }
+  }
+
+  &-justify {
+    &-start .s-tab-nav {
+      justify-content: flex-start;
+    }
+    &-center .s-tab-nav {
+      justify-content: center;
+    }
+
+    &-end .s-tab-nav {
+      justify-content: flex-end;
     }
   }
 }
