@@ -43,12 +43,15 @@
       <s-tab class="tab-wrap">
         <s-tab-item
           label="ONE "
-          icon="success">ONE</s-tab-item>
+          icon="success">ONE
+        </s-tab-item>
         <s-tab-item
           label="TWO "
-          icon="info">TWO</s-tab-item>
+          icon="info">TWO
+        </s-tab-item>
         <s-tab-item
-          icon="danger">TWO</s-tab-item>
+          icon="danger">TWO
+        </s-tab-item>
       </s-tab>
     </s-panel>
     <s-panel title="Align 排列">
@@ -101,7 +104,17 @@
       <s-tab
         justify="evenly"
         class="tab-wrap">
-        <s-tab-item label="ONE ">ONE</s-tab-item>
+        <s-tab-item label="ONE">ONE</s-tab-item>
+        <s-tab-item label="TWO">TWO</s-tab-item>
+        <s-tab-item label="THREE">THREE</s-tab-item>
+      </s-tab>
+    </s-panel>
+    <s-panel title="Type 类型">
+      <h3>Card 卡片</h3>
+      <s-tab
+        justify="center"
+        type="card">
+        <s-tab-item label="ONE">ONE</s-tab-item>
         <s-tab-item label="TWO">TWO</s-tab-item>
         <s-tab-item label="THREE">THREE</s-tab-item>
       </s-tab>

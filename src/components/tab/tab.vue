@@ -15,8 +15,12 @@
           :key="item.name"
           :class="item.name === activeName ? 's-tab-active' : ''"
           class="s-tab-nav-item"
-          @click="toggle(item)"
-          v-html="item.label" />
+          @click="toggle(item)">
+          {{ item.label }}
+          <s-icon
+            class="s-tab-nav-icon"
+            :type="item.icon" />
+        </li>
       </ul>
       <slot name="header" />
     </div>
@@ -277,6 +281,26 @@ export default {
 
       &-evenly .s-tab-nav {
         justify-content: space-evenly;
+      }
+    }
+
+    &-card {
+      .s-tab {
+        &-nav {
+          &-item {
+            border: 1px solid #eaeefb;
+
+            &:not(:first-child) {
+              margin-left: -1px;
+            }
+          }
+        }
+      }
+    }
+
+    &.s-tab-top {
+      .s-tab-nav-item.s-tab-active {
+        border-bottom-color: #fff;
       }
     }
   }

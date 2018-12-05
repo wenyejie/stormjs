@@ -12,7 +12,8 @@
   h3 {
     margin-top: 36px;
     padding-left: 24px;
-    padding-bottom: 12px;
+    margin-bottom: 12px;
+    font-size: 16px;
     font-weight: bold;
     border-bottom: 1px solid #eaeefb;
   }
