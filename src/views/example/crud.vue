@@ -77,6 +77,12 @@
           </td>
         </tr>
       </s-table>
+      <s-page
+        v-if="totalSize >= 0"
+        @change="getList(currentPage)"
+        :page-size="pageSize"
+        :total-size="totalSize"
+        v-model="currentPage" />
     </s-panel>
 
     <!-- 新建/编辑用户 -->
