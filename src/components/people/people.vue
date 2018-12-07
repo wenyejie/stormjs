@@ -27,38 +27,34 @@
         </li>
       </ul>
     </div>
-    <transition name="fade">
-      <div
-        v-if="visible !== 0"
-        v-show="visible === 1"
-        class="s-people-dropdown fade">
-        <input
-          v-model.trim="searchKey"
-          class="s-people-input"
-          placeholder="搜索用户（支持拼音首字母）">
-        <p class="s-people-total">全部联系人（{{ innerList.length }}人）</p>
-        <ul class="s-people-dropdown-list">
-          <li
-            v-for="item in filterList"
-            :key="item.id"
-            :class="{checked: item.checked}"
-            class="s-people-dropdown-item"
-            @click="handleSelect(item)">
-            <s-portrait
-              :name="item.name"
-              class="s-people-dropdown-portrait" />
-            {{ item.name }}
-          </li>
-        </ul>
-      </div>
-    </transition>
+    <s-dropdown
+      class="s-people-dropdown"
+      v-model="visible">
+      <input
+        v-model.trim="searchKey"
+        class="s-people-input"
+        placeholder="搜索用户（支持拼音首字母）">
+      <p class="s-people-total">全部联系人（{{ innerList.length }}人）</p>
+      <ul class="s-people-dropdown-list">
+        <li
+          v-for="item in filterList"
+          :key="item.id"
+          :class="{checked: item.checked}"
+          class="s-people-dropdown-item"
+          @click="handleSelect(item)">
+          <s-portrait
+            :name="item.name"
+            class="s-people-dropdown-portrait" />
+          {{ item.name }}
+        </li>
+      </ul>
+    </s-dropdown>
   </div>
 </template>
 
 <script>
 import arrayToggle from '../../utils/arrayToggle'
 import clone from '../../utils/clone'
-import elOverflowToggle from '../../utils/elOverflowToggle'
 import cn2pinyin from '../../utils/cn2pinyin'
 import formElementMixin from '../../mixins/formElementMixin'
 
@@ -133,7 +129,7 @@ export default {
           const pinyin = cn2pinyin(item.name, { isFirstLetter: true })
           const pinyin1 = cn2pinyin(item1.name, { isFirstLetter: true })
           return pinyin.toLocaleLowerCase().indexOf(key) >
-                pinyin1.toLocaleLowerCase().indexOf(key)
+            pinyin1.toLocaleLowerCase().indexOf(key)
         })
       }
       return result
@@ -149,10 +145,6 @@ export default {
       if (val === oldVal) return
       this.innerVal = val
       this.init()
-    },
-    visible (val, oldVal) {
-      if (val === oldVal) return
-      elOverflowToggle(val === 1)
     },
     list (val, oldVal) {
       if (val === oldVal) return
@@ -170,18 +162,9 @@ export default {
   },
   methods: {
 
-    lister () {
-      if (this.visible === 1) this.visible = 2
-    },
-
     // 点击
     handleToggle () {
       this.visible = this.visible === 1 ? 2 : 1
-      if (this.visible === 1) {
-        document.addEventListener('click', this.lister, { once: true })
-      } else {
-        document.removeEventListener('click', this.lister)
-      }
     },
 
     handleInput (item) {
@@ -218,7 +201,10 @@ export default {
 
     // 初始化
     init () {
-      if ((Array.isArray(this.innerVal) && this.innerVal.length === 0) || (!Array.isArray(this.innerVal) && !this.innerVal)) {
+      if (
+        (Array.isArray(this.innerVal) && this.innerVal.length === 0) ||
+        (!Array.isArray(this.innerVal) && !this.innerVal)
+      ) {
         return
       }
       const result = this.innerList.filter(item => {
@@ -239,9 +225,11 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../styles/variable.scss";
+
   .s-people {
     &-view {
       line-height: 1;
+
       &-list {
         display: flex;
       }
@@ -256,14 +244,14 @@ export default {
     }
 
     &-dropdown {
-      position: absolute;
-      z-index: 1;
+      /*position: absolute;*/
+      /*z-index: 1;*/
       width: 342px;
       background-color: #fff;
       box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.30);
       border-radius: 4px;
       padding: 24px 24px 13px;
-      margin-top: 8px;
+      /*margin-top: 8px;*/
 
       &-list {
         margin: 9px -24px 0;

@@ -6,6 +6,7 @@
  -->
 <template>
   <div
+    ref="dropdown"
     v-if="innerVal !== 0"
     v-show="innerVal === 1"
     :class="classes"
@@ -84,11 +85,8 @@ export default {
       }
     }
   },
-  created () {
-
-  },
   mounted () {
-    this.addListener()
+    if (this.innerVal > 0) this.addListener()
   },
   beforeDestroy () {
     this.removeListener()
@@ -120,9 +118,11 @@ export default {
 
     // 移除监听
     removeListener () {
-      if (this.innerVal === 1 && this.autoClose) {
-        elOnceEventListener.remove(this.docClickCb)
-      }
+      elOnceEventListener.remove(this.docClickCb)
+      // if (this.innerVal === 1 && this.autoClose) {
+      //   console.log('remove......')
+      //   elOnceEventListener.remove(this.docClickCb)
+      // }
     },
 
     // document点击回调
