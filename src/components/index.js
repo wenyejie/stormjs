@@ -40,6 +40,7 @@ import sDateTimePicker from './dateTimePicker'
 import sDropdown from './dropdown'
 import sDate from './datetime/date.vue'
 import sTime from './datetime/time.vue'
+import SEditor from './editor'
 
 const components = {
   sLayout,
@@ -84,7 +85,8 @@ const components = {
   sDateTimePicker,
   sDropdown,
   sDate,
-  sTime
+  sTime,
+  SEditor
 }
 
 const install = (Vue) => {
