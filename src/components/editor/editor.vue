@@ -22,13 +22,33 @@
 <script>
 import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+import './snow.css'
 import formElementMixin from '../../mixins/formElementMixin'
 
+// import 'quill/dist/quill.bubble.css'
 // document: https://quilljs.com/docs/quickstart/
 
-console.log(quillEditor)
+const defOpts = {
+  modules: {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      // [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean'],
+      ['link', 'image', 'video']
+    ]
+  },
+  placeholder: '在这里插入文本…'
+}
 
 export default {
   name: 'SEditor',
@@ -42,7 +62,7 @@ export default {
     options: {
       type: Object,
       default () {
-        return Object.create(null)
+        return { ...defOpts }
       }
     }
   },
@@ -83,11 +103,25 @@ export default {
 
 <style lang="scss">
   .s-editor {
+    display: flex;
+    max-width: 100%;
+
+    &-inner {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .ql-toolbar.ql-snow {
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      border-color: #ddd;
+    }
 
     .ql-container.ql-snow {
       height: 234px;
-      border-radius: 3px;
-      border: 1px solid #ddd;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      border-color: #ddd;
     }
   }
 </style>

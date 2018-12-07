@@ -5,15 +5,15 @@
  - @date: 2018/08/09
  -->
 <template>
-  <div class="layout">
+  <div class="s-layout">
     <s-aside :aside-visible="asideVisible" />
-    <div class="content">
+    <div class="s-content">
       <s-header
         :aside-visible="asideVisible"
         @toggle="handleToggle" />
-      <div class="body">
+      <div class="s-body">
         <slot name="left" />
-        <main class="main">
+        <main class="s-main">
           <slot />
         </main>
       </div>
@@ -43,18 +43,18 @@ export default {
 </script>
 
 <style lang="scss">
-  .layout {
+  .s-layout {
     display: flex;
     align-items: stretch;
     min-height: 100vh;
   }
-  .content {
+  .s-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
-  .main {
+  .s-main {
     padding: 24px;
     flex: 1;
     overflow: hidden;
@@ -66,7 +66,7 @@ export default {
     &-c {
     }
   }
-  .body {
+  .s-body {
     display: flex;
     flex: 1;
     align-content: stretch;
