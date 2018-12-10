@@ -37,7 +37,7 @@ export default {
     },
 
     fill: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false
     }
   },
@@ -62,7 +62,8 @@ export default {
       return {
         [`s-icon-${this.type}`]: !!this.type,
         [`s-icon-fill`]: !!this.fill,
-        [`${this.fill ? 'bg' : 'c'}-${this.color}`]: isTheme(this.color)
+        [`${this.fill ? 'bg' : 'c'}-${this.color}`]: isTheme(this.color),
+        [`s-icon-${this.fill}`]: !!this.fill
       }
     }
   }
@@ -100,6 +101,13 @@ export default {
       font-size: 20px;
       color: #fff;
       border-radius: 3px;
+    }
+
+    &-sm {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 14px;
     }
 
     &-loading:before {
