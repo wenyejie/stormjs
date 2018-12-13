@@ -9,6 +9,7 @@
     <s-input
       v-model="innerFormatVal"
       :name="name"
+      :disabled="disabled"
       class="s-timePicker-input"
       @focus="handleFocus"
       @blur="handleBlur" />
