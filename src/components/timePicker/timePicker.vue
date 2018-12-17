@@ -32,6 +32,7 @@
           v-model="minute"
           @change="handleMinuteChange" />
         <s-time-picker-spinner
+          v-if="!noSeconds"
           :list="seconds"
           v-model="second"
           @change="handleSecondChange" />
@@ -122,6 +123,12 @@ export default {
       type: String,
       default: undefined,
       validator: val => ['lg', 'sm', 'xs'].includes(val)
+    },
+
+    // 时分展示
+    noSeconds: {
+      type: Boolean | null,
+      default: false
     }
   },
   data () {
