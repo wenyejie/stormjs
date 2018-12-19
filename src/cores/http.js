@@ -69,7 +69,7 @@ instance.interceptors.response.use(response => {
     Vue.prototype.$message.danger(data.info || data.code || data.errorMsg || data.errorCode || '服务器错误, 请重试!')
 
     // 当用户未登录时, 自动跳转到登录页面
-    if (data.errorCode === 'noLogin' && !location.search.includes('redirect')) {
+    if (data.errorCode === 'noLogin' && !location.pathname.includes('login')) {
       const { search, pathname } = location
       location.href = `/login?redirect=` + encodeURI(`${pathname}${search}`)
     }
