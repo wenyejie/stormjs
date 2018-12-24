@@ -5,7 +5,9 @@
  - @date: 2018/08/23
  -->
 <template>
-  <s-layout>{{ demo | trimRight }}</s-layout>
+  <s-layout>
+    <s-people />
+  </s-layout>
 </template>
 
 <script>

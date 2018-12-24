@@ -16,9 +16,10 @@
           <s-portrait
             :name="item[labelKey]"
             class="s-people-view-portrait" />
-            <!--<a-->
-            <!--class="s-people-view-close"-->
-            <!--href="javascript:;">×</a>-->
+          <a
+            @click="handleClose(item)"
+            class="s-people-view-close"
+            href="javascript:;" />
         </li>
         <li v-if="readonly === false">
           <button
@@ -212,6 +213,11 @@ export default {
   },
   methods: {
 
+    handleClose (item) {
+      item.checked = false
+      this.handleInput(item)
+    },
+
     // 得到用户列表
     setUserList (list, isAsync) {
       this.innerList = list
@@ -303,6 +309,10 @@ export default {
       &-item {
         margin-right: 7px;
         position: relative;
+
+        &:hover .s-people-view-close {
+          display: flex;
+        }
       }
 
       &-portrait {
@@ -314,6 +324,34 @@ export default {
         width: 12px;
         height: 12px;
         background-color: #ccc;
+        text-align: center;
+        line-height: 12px;
+        font-size: 12px;
+        color: #fff;
+        border-radius: 50%;
+        top: -4px;
+        right: -4px;
+        justify-content: center;
+        align-items: center;
+        display: none;
+
+        &:after,
+        &:before {
+          content: '';
+          background-color: #fff;
+          width: 6px;
+          display: block;
+          height: 1px;
+        }
+
+        &:after {
+          transform: rotate(45deg);
+          margin-left: -6px;
+        }
+
+        &:before {
+          transform: rotate(-45deg);
+        }
       }
     }
 
