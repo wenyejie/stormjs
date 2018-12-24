@@ -7,6 +7,7 @@
 <template>
   <div
     :class="classes"
+    v-if="totalSize === 0 || totalPage === 0"
     class="s-page">
     <ul>
       <li
@@ -101,11 +102,11 @@
 const countHalf = (num) => Math.ceil(num / 2)
 
 /**
-     * 根据参数起始值, 和结束值计算分页列表
-     * @param start
-     * @param end
-     * @return {Array}
-     */
+ * 根据参数起始值, 和结束值计算分页列表
+ * @param start
+ * @param end
+ * @return {Array}
+ */
 const countList = (start, end) => {
   const list = []
   for (; start < end; start++) {
@@ -115,11 +116,11 @@ const countList = (start, end) => {
 }
 
 /**
-     * 生成分页列表
-     * @param current 当前页
-     * @param total 总页数
-     * @param number 按钮数量
-     */
+ * 生成分页列表
+ * @param current 当前页
+ * @param total 总页数
+ * @param number 按钮数量
+ */
 const generateList = (current, total, number) => {
   // 起始页, 结束页
   let start = 0
@@ -143,10 +144,10 @@ const generateList = (current, total, number) => {
 }
 
 /**
-     * 数字验证规则
-     * @param val
-     * @return {boolean}
-     */
+ * 数字验证规则
+ * @param val
+ * @return {boolean}
+ */
 const validator = (val) => val >= 0
 
 export default {
@@ -371,8 +372,8 @@ export default {
   methods: {
 
     /**
-         * pageSize变更
-         */
+     * pageSize变更
+     */
     handlePageSize () {
       if (this.disabled) return
 
@@ -380,8 +381,8 @@ export default {
     },
 
     /**
-         * 启动电梯
-         */
+     * 启动电梯
+     */
     startElevator () {
       if (this.disabled) return
 
@@ -395,9 +396,9 @@ export default {
     },
 
     /**
-         * 生成列表
-         * @param opts 选项
-         */
+     * 生成列表
+     * @param opts 选项
+     */
     buildList (opts = {}) {
       if (this.innerTotalPage === 0 || !Number.isInteger(this.innerTotalPage)) return
       const { total, current, number } = Object.assign({
@@ -410,9 +411,9 @@ export default {
     },
 
     /**
-         * 切换筛选器
-         * @param type 类型 1:prev, 2:next
-         */
+     * 切换筛选器
+     * @param type 类型 1:prev, 2:next
+     */
     handleSizer (type) {
       if (this.disabled) return
 
@@ -434,8 +435,8 @@ export default {
     },
 
     /**
-         * 点击切换页面
-         */
+     * 点击切换页面
+     */
     togglePage (page) {
       if (this.disabled) return
 
@@ -452,6 +453,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-page {
     font-family: Arial;
     display: flex;
@@ -503,7 +505,8 @@ export default {
       }
 
       &.active {
-        background-color: $primary;
+        background-color: #0facf3;
+        border-color: #0facf3;
         color: $white
       }
     }
@@ -576,6 +579,7 @@ export default {
           width: 38px;
         }
       }
+
       li {
         margin-right: 5px;
       }
