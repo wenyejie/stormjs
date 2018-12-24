@@ -118,7 +118,7 @@ export default {
     padding: 6px 12px;
     min-width: 64px;
     font-size: $md;
-    border-radius: 4px;
+    border-radius: 3px;
     transition: all .3s ease-in-out;
 
     &-block {
