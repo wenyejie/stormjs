@@ -25,14 +25,13 @@
           <slot name="header">
             <h1 class="s-dialog-title">{{ title }}</h1>
           </slot>
-          <a
-            v-if="hasClose"
-            class="s-dialog-close"
-            href="javascript:;"
-            @click="handleClose">
-            <s-icon type="close" />
-          </a>
         </header>
+        <a
+          v-if="hasClose"
+          class="s-dialog-close"
+          href="javascript:;"
+          @click="handleClose">×
+        </a>
         <div class="s-dialog-body">
           <slot>
             <div
@@ -117,8 +116,8 @@ export default {
     },
 
     // 是否有遮罩层
-    hasMask: {
-      type: Boolean,
+    mask: {
+      type: [Boolean, String],
       default: true
     },
 
@@ -196,7 +195,8 @@ export default {
       return {
         [`s-dialog-${this.size}`]: !!this.size && typeof this.size === 'string',
         [`s-dialog-${this.name}`]: !!this.name,
-        [`s-dialog-align-${this.align}`]: !!this.align
+        [`s-dialog-align-${this.align}`]: !!this.align,
+        's-dialog-mask': !!this.mask
       }
     },
 
@@ -289,7 +289,10 @@ export default {
     @include absolute-center;
     z-index: 1024;
     transition: all .15s ease-in-out;
-    background-color: rgba(0, 0, 0, 0.5);
+
+    &-mask {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
 
     &-enter,
     &-leave-active {
@@ -350,7 +353,7 @@ export default {
     }
 
     &-body {
-      padding: 24px;
+      padding: 16px 24px 24px;
       color: #48576a;
       font-size: $md;
       position: relative;
