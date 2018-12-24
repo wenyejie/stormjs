@@ -17,12 +17,12 @@
     </s-panel>
 
     <s-panel title="Justify">
-      <s-row justify="left">
+      <s-row justify="start">
         <s-col />
         <s-col />
         <s-col />
       </s-row>
-      <s-row justify="right">
+      <s-row justify="end">
         <s-col />
         <s-col />
         <s-col />
