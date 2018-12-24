@@ -13,13 +13,16 @@
         <li
           v-for="item in checkedList"
           :key="item.id"
-          :title="item.name"
+          :title="item[labelKey]"
           class="s-people-view-item">
           <s-portrait
-            :name="item.name"
+            :name="item[labelKey]"
             class="s-people-view-portrait" />
+            <!--<a-->
+            <!--class="s-people-view-close"-->
+            <!--href="javascript:;">×</a>-->
         </li>
-        <li>
+        <li v-if="readonly === false">
           <button
             type="button"
             class="s-people-add"
@@ -28,6 +31,7 @@
       </ul>
     </div>
     <s-dropdown
+      v-if="readonly === false"
       class="s-people-dropdown"
       v-model="visible">
       <input
@@ -43,9 +47,9 @@
           class="s-people-dropdown-item"
           @click="handleSelect(item)">
           <s-portrait
-            :name="item.name"
+            :name="item[labelKey]"
             class="s-people-dropdown-portrait" />
-          {{ item.name }}
+          {{ item[labelKey] }}
         </li>
       </ul>
     </s-dropdown>
@@ -57,6 +61,42 @@ import arrayToggle from '../../utils/arrayToggle'
 import clone from '../../utils/clone'
 import cn2pinyin from '../../utils/cn2pinyin'
 import formElementMixin from '../../mixins/formElementMixin'
+import { list } from '../../apis/user'
+
+// 获取用户信息
+const user = {
+  list: [],
+  getting: 0,
+  callbacks: [],
+  listen () {
+    this.callbacks.forEach(cb => {
+      cb && cb(clone(user.list, true), true)
+    })
+    delete user.callbacks
+  },
+  getList () {
+    user.getting = 1
+    list({ rows: 50, pageNo: 1 })
+      .then(response => {
+        user.getting = 2
+        user.list = response.dataList || []
+        this.listen()
+      }, () => {
+        user.getting = 3
+      })
+  },
+  get (cb) {
+    if (user.getting === 2) {
+      cb(clone(user.list, true))
+      return
+    }
+    this.callbacks.push(cb)
+    if (user.getting === 1) {
+      return
+    }
+    this.getList()
+  }
+}
 
 export default {
   name: 'SPeople',
@@ -77,7 +117,7 @@ export default {
     // 展示字段
     labelKey: {
       type: String,
-      default: ''
+      default: 'userName'
     },
 
     // 取值字段
@@ -86,13 +126,25 @@ export default {
       default: 'loginName'
     },
 
-    // 展示列表数据
-    list: {
-      type: Array,
-      default () {
-        return []
-      }
+    // 类型
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+
+    // 是否有关闭按钮
+    hasClose: {
+      type: Boolean,
+      default: false
     }
+
+    // 展示列表数据
+    // list: {
+    //   type: Array,
+    //   default () {
+    //     return []
+    //   }
+    // }
   },
   data () {
     return {
@@ -105,7 +157,7 @@ export default {
       // dropdown可见行
       visible: 0,
 
-      innerList: clone(this.list)
+      innerList: clone(user.list, true)
     }
   },
   computed: {
@@ -145,22 +197,35 @@ export default {
       if (val === oldVal) return
       this.innerVal = val
       this.init()
-    },
-    list (val, oldVal) {
-      if (val === oldVal) return
-      this.innerList = clone(val)
-      this.init()
     }
+    // list (val, oldVal) {
+    //   if (val === oldVal) return
+    //   this.innerList = clone(val, true)
+    //   this.init()
+    // }
   },
   created () {
     // 初始化默认值
     if (!this.innerVal) {
       this.innerVal = this.multiple ? [] : undefined
     }
-
+    this.getUserList()
     this.init()
   },
   methods: {
+
+    // 得到用户列表
+    setUserList (list, isAsync) {
+      this.innerList = list
+      if (isAsync) {
+        this.init()
+      }
+    },
+
+    // 获取用户列表
+    getUserList () {
+      user.get(this.setUserList)
+    },
 
     // 点击
     handleToggle () {
@@ -192,7 +257,9 @@ export default {
           item.checked = false
         })
       }
-      this.$set(item, 'checked', !item.checked)
+      let tmpChecked = item.checked
+      this.$delete(item, 'checked')
+      this.$set(item, 'checked', !tmpChecked)
       this.handleInput(item)
       if (!this.multiple) {
         this.handleToggle()
@@ -208,6 +275,7 @@ export default {
         return
       }
       const result = this.innerList.filter(item => {
+        item.checked = false
         if (this.multiple) {
           return this.innerVal.includes(item[this.valueKey])
         } else {
@@ -223,7 +291,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import "../../styles/variable.scss";
 
   .s-people {
@@ -236,16 +304,24 @@ export default {
 
       &-item {
         margin-right: 7px;
+        position: relative;
       }
 
       &-portrait {
         display: block;
       }
+
+      &-close {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background-color: #ccc;
+      }
     }
 
     &-dropdown {
       /*position: absolute;*/
-      /*z-index: 1;*/
+      z-index: 1;
       width: 342px;
       background-color: #fff;
       box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.30);
