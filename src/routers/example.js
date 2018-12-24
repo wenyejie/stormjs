@@ -11,7 +11,7 @@ export default {
   name: 'example',
   path: '/example',
   component: Main,
-  redirect: { name: 'RDemoInput' },
+  redirect: { name: 'exampleInput' },
   children: [
     {
       name: 'exampleInput',

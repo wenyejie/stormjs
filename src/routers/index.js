@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/Home.vue')
+      component: () => import('../views/home.vue')
     },
 
     example,
@@ -19,12 +19,12 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue')
+      component: () => import('../views/login.vue')
     },
     {
       path: '/demo',
       name: 'demo',
-      component: () => import('../views/Demo.vue')
+      component: () => import('../views/demo.vue')
     },
     {
       path: '*',
