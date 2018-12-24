@@ -26,12 +26,6 @@
             <h1 class="s-dialog-title">{{ title }}</h1>
           </slot>
         </header>
-        <a
-          v-if="hasClose"
-          class="s-dialog-close"
-          href="javascript:;"
-          @click="handleClose">×
-        </a>
         <div class="s-dialog-body">
           <slot>
             <div
@@ -62,6 +56,12 @@
             <slot name="footerAfter" />
           </slot>
         </footer>
+        <a
+          v-if="hasClose"
+          class="s-dialog-close"
+          href="javascript:;"
+          @click="handleClose">×
+        </a>
       </div>
     </section>
   </transition>
@@ -304,6 +304,7 @@ export default {
       width: 420px;
       background-color: #fff;
       border-radius: 4px;
+      position: relative;
     }
 
     &-align {

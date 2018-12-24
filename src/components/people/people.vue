@@ -5,9 +5,7 @@
  - @date: 2018/09/14
  -->
 <template>
-  <div
-    class="s-people"
-    @click.stop>
+  <div class="s-people">
     <div class="s-people-view">
       <ul class="s-people-view-list">
         <li
