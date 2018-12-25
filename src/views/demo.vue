@@ -6,7 +6,9 @@
  -->
 <template>
   <s-layout>
-    <s-people />
+    <s-upload>上传文件</s-upload>
+
+    <s-editor />
   </s-layout>
 </template>
 
@@ -29,9 +31,6 @@ export default {
       deep: true,
       immediate: true
     }
-  },
-  created () {
-    console.log(this)
   }
 }
 </script>

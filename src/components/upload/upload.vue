@@ -158,8 +158,10 @@ export default {
       getFileBinary(files[0], binary => {
         const fd = new FormData()
         fd.append('file', binary)
-        fd.append('fileName', 'fuckme')
-        // fd.append('businessType', 100)
+        fd.append('fileName', Date.now())
+        fd.append('businessType', 100)
+        console.log(fd)
+        debugger
         upload(fd)
       })
 

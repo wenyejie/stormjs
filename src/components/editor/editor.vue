@@ -166,6 +166,7 @@ export default {
 <style lang="scss">
   .s-editor {
     max-width: 100%;
+    background-color: #fff;
 
     &-fullscreen {
       position: fixed;

@@ -1,7 +1,18 @@
+const Webpack = require('webpack')
+
 const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
   runtimeCompiler: true,
+
+  configureWebpack: {
+    plugins: [
+      new Webpack.ProvidePlugin({
+        'window.Quill': 'quill/dist/quill.js',
+        'Quill': 'quill/dist/quill.js'
+      })
+    ]
+  },
 
   transpileDependencies: [
     /\/node_modules\/vue-echarts\//,
