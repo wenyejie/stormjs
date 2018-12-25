@@ -78,17 +78,27 @@ export default {
           this.$emit('firstChosen')
         }
       }
+    },
+
+    label (val, oldVal) {
+      if (val === oldVal) return
+      this.init()
     }
   },
   mounted () {
-    this.$parent.addItem({
-      name: this.innerName,
-      label: this.label,
-      icon: this.icon
-    })
+    this.init()
   },
   beforeDestroy () {
     this.$parent.removeItem(this.innerName)
+  },
+  methods: {
+    init () {
+      this.$parent.addItem({
+        name: this.innerName,
+        label: this.label,
+        icon: this.icon
+      })
+    }
   }
 }
 </script>

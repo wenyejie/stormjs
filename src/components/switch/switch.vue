@@ -19,8 +19,10 @@
 </template>
 
 <script>
+import formElementMixins from '../../mixins/formElementMixin'
 export default {
   name: 'SSwitch',
+  mixins: [formElementMixins],
   props: {
     value: {
       type: [Boolean, String, Number, Object, Date, Array],

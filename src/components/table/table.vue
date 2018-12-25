@@ -9,21 +9,23 @@
     :class="classes"
     class="s-table">
     <table>
-      <colgroup v-if="$slots.colgroup">
-        <slot name="colgroup" />
-      </colgroup>
-      <caption v-if="$slots.caption || title">
-        <slot name="title">{{ title }}</slot>
-      </caption>
-      <thead v-if="$slots.head">
-        <slot name="head" />
-      </thead>
-      <tbody v-if="$slots.default">
-        <slot />
-      </tbody>
-      <tfoot v-if="$slots.foot">
-        <slot name="foot" />
-      </tfoot>
+      <slot name="table">
+        <colgroup v-if="$slots.colgroup">
+          <slot name="colgroup" />
+        </colgroup>
+        <caption v-if="$slots.caption || title">
+          <slot name="title">{{ title }}</slot>
+        </caption>
+        <thead v-if="$slots.head">
+          <slot name="head" />
+        </thead>
+        <tbody v-if="$slots.default">
+          <slot />
+        </tbody>
+        <tfoot v-if="$slots.foot">
+          <slot name="foot" />
+        </tfoot>
+      </slot>
     </table>
   </div>
 </template>
@@ -90,6 +92,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-table {
 
     caption {

@@ -387,7 +387,7 @@
   text-align: right;
 }
 .ql-editor.ql-blank::before {
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
   content: attr(data-placeholder);
   font-style: italic;
   left: 15px;
@@ -506,12 +506,14 @@
   .ql-snow .ql-toolbar button:hover:not(.ql-active) {
     color: #444;
   }
+
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-fill,
   .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-fill,
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill,
   .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill {
     fill: #444;
   }
+
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke,
   .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke,
   .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter,
@@ -707,7 +709,7 @@
   right: 4px;
 }
 .ql-snow .ql-icon-picker .ql-picker-options {
-  padding: 4px 0px;
+  padding: 4px 0;
 }
 .ql-snow .ql-icon-picker .ql-picker-item {
   height: 24px;
@@ -723,7 +725,7 @@
   float: left;
   height: 16px;
   margin: 2px;
-  padding: 0px;
+  padding: 0;
   width: 16px;
 }
 .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
@@ -859,7 +861,7 @@
 }
 .ql-toolbar.ql-snow .ql-picker-options {
   border: 1px solid transparent;
-  box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
 }
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
   border-color: #ccc;
@@ -872,12 +874,12 @@
   border-color: #000;
 }
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
-  border-top: 0px;
+  border-top: 0;
 }
 .ql-snow .ql-tooltip {
   background-color: #fff;
   border: 1px solid #ccc;
-  box-shadow: 0px 0px 5px #ddd;
+  box-shadow: 0 0 5px #ddd;
   color: #444;
   padding: 5px 12px;
   white-space: nowrap;
@@ -892,7 +894,7 @@
   border: 1px solid #ccc;
   font-size: 13px;
   height: 26px;
-  margin: 0px;
+  margin: 0;
   padding: 3px 5px;
   width: 170px;
 }
@@ -924,9 +926,9 @@
   display: inline-block;
 }
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
-  border-right: 0px;
+  border-right: 0;
   content: 'Save';
-  padding-right: 0px;
+  padding-right: 0;
 }
 .ql-snow .ql-tooltip[data-mode=link]::before {
   content: "Enter link:";
@@ -942,4 +944,18 @@
 }
 .ql-container.ql-snow {
   border: 1px solid #ccc;
+}
+.ql-showHtml:before {
+  content: "</>";
+}
+.ql-fullscreen:before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  display: block;
+  background: url("./src/fullscreen.png") no-repeat center;
+  background-size: 18px 18px;
+}
+.ql-fullscreen-exit:before {
+  background-image: url("./src/fullscreen-exit.png");
 }

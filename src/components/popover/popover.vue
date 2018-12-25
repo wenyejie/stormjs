@@ -9,7 +9,7 @@
     class="s-popover"
     @focus="show('focus')"
     @blur="hide('focus')"
-    @click="toggle('click')"
+    @click.stop="toggle('click')"
     @mouseenter="show('hover')"
     @mouseleave="hide('hover')">
     <slot name="reference" />
@@ -29,6 +29,11 @@
 </template>
 
 <script>
+import elOnceEventListener from '../../utils/elOnceEventListener'
+
+// 回调
+let callbacks = []
+
 export default {
   name: 'SPopover',
   props: {
@@ -36,7 +41,14 @@ export default {
       type: String,
       default: ''
     },
-    trigger: {
+    triggerin: {
+      type: String,
+      default: 'click',
+      validator (val) {
+        return ['click', 'focus', 'hover'].includes(val)
+      }
+    },
+    triggerout: {
       type: String,
       default: 'click',
       validator (val) {
@@ -50,6 +62,12 @@ export default {
       validator (val) {
         return ['top', 'top-left', 'top-right', 'right', 'right-top', 'right-bottom', 'bottom', 'bottom-right', 'bottom-left', 'left', 'left-bottom', 'left-top'].includes(val)
       }
+    },
+
+    // 唯一
+    isOnly: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -65,16 +83,31 @@ export default {
     }
   },
   methods: {
-    show (type) {
-      if (type !== this.trigger) return
-      this.visible = 1
-    },
-    hide (type) {
-      if (type !== this.trigger) return
+    // document点击回调
+    docClickCb () {
       this.visible = 2
     },
+
+    show (type) {
+      if (type !== this.triggerin) return
+      this.visible = 1
+      elOnceEventListener.add(this.docClickCb)
+      if (this.isOnly) {
+        callbacks.forEach(({ cb, _uid }) => {
+          if (_uid === this._uid) {
+          } else {
+            cb && cb()
+          }
+        })
+        callbacks = [{ cb: this.docClickCb, _uid: this._uid }]
+      }
+    },
+    hide (type) {
+      if (type !== this.triggerout) return
+      this.visible = 2
+      elOnceEventListener.remove(this.docClickCb)
+    },
     toggle (type) {
-      if (type !== this.trigger) return
       if (this.visible !== 1) {
         this.show(type)
       } else {
@@ -87,12 +120,14 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-popover {
     display: inline-block;
     position: relative;
 
     &-inner {
       position: absolute;
+      z-index: 1;
       transition: all .3s ease-in-out;
       background-color: #fff;
       border: 1px solid #ebeef5;
@@ -111,11 +146,13 @@ export default {
         border: 6px solid transparent;
         filter: drop-shadow(0 2px 12px rgba(0, 0, 0, .3));
       }
+
       &-enter,
       &-leave-active {
         opacity: 0;
       }
     }
+
     &-top,
     &-top-left,
     &-top-right {
@@ -126,30 +163,37 @@ export default {
         border-top-color: #fff;
       }
     }
+
     &-top {
       top: 0;
       left: 50%;
       transform: translate(-50%, calc(-100% - 8px));
+
       &:after {
         left: 50%;
       }
     }
+
     &-top-left {
       top: 0;
       left: 0;
       transform: translate(0, calc(-100% - 8px));
+
       &:after {
         left: 15px;
       }
     }
+
     &-top-right {
       top: 0;
       right: 0;
       transform: translate(0, calc(-100% - 8px));
+
       &:after {
         right: 15px;
       }
     }
+
     &-right,
     &-right-top,
     &-right-bottom {
@@ -160,30 +204,37 @@ export default {
         border-right-color: #fff;
       }
     }
+
     &-right {
-      right: 0;
+      right: -15px;
       top: 50%;
       transform: translate(calc(100% + 8px), -50%);
+
       &:after {
         top: 50%;
       }
     }
+
     &-right-top {
       right: 0;
       top: 0;
       transform: translate(calc(100% + 8px), 0);
+
       &:after {
         top: 15px;
       }
     }
+
     &-right-bottom {
       right: 0;
       bottom: 0;
       transform: translate(calc(100% + 8px), 0);
+
       &:after {
         bottom: 15px;
       }
     }
+
     &-bottom,
     &-bottom-left,
     &-bottom-right {
@@ -194,30 +245,37 @@ export default {
         border-bottom-color: #fff;
       }
     }
+
     &-bottom {
       bottom: 0;
       left: 50%;
       transform: translate(-50%, calc(100% + 8px));
+
       &:after {
         left: 50%;
       }
     }
+
     &-bottom-left {
       bottom: 0;
       left: 0;
       transform: translate(0, calc(100% + 8px));
+
       &:after {
         left: 15px;
       }
     }
+
     &-bottom-right {
       bottom: 0;
       right: 0;
       transform: translate(0, calc(100% + 8px));
+
       &:after {
         right: 15px;
       }
     }
+
     &-left,
     &-left-top,
     &-left-bottom {
@@ -228,26 +286,32 @@ export default {
         border-left-color: #fff;
       }
     }
+
     &-left {
       left: 0;
       top: 50%;
       transform: translate(calc(-100% - 8px), -50%);
+
       &:after {
         top: 50%;
       }
     }
+
     &-left-top {
       left: 0;
       top: 0;
       transform: translate(calc(-100% - 8px), 0);
+
       &:after {
         top: 15px;
       }
     }
+
     &-left-bottom {
       left: 0;
       bottom: 0;
       transform: translate(calc(-100% - 8px), 0);
+
       &:after {
         bottom: 15px;
       }

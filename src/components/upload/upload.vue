@@ -24,7 +24,19 @@
 </template>
 
 <script>
+import { upload } from '../../apis/upload'
 import isPositiveInteger from '../../utils/isPositiveInteger'
+
+// 获取文件二进制数据
+function getFileBinary (file, cb) {
+  const reader = new FileReader()
+  reader.readAsArrayBuffer(file)
+  reader.onload = function (e) {
+    if (typeof cb === 'function') {
+      cb.call(this, this.result)
+    }
+  }
+}
 
 export default {
   name: 'SUpload',
@@ -79,7 +91,7 @@ export default {
     // 选完文件之后自动上传
     auto: {
       type: Boolean,
-      default: false
+      default: true
     },
 
     // 最小个数, 0即为不限制, 只有为多选时才有效
@@ -140,7 +152,18 @@ export default {
     }
   },
   methods: {
-    // FIXME 待完善
+
+    // 上传
+    handleUpload (files) {
+      getFileBinary(files[0], binary => {
+        const fd = new FormData()
+        fd.append('file', binary)
+        fd.append('fileName', 'fuckme')
+        // fd.append('businessType', 100)
+        upload(fd)
+      })
+
+    },
 
     // 变更
     handleChange ($event) {
@@ -148,7 +171,7 @@ export default {
       for (let i = 0; i < length; i++) {
         this.list.push($event.target.files[i])
       }
-      console.log(this.list)
+      this.handleUpload($event.target.files)
       $event.target.value = ''
       this.$emit('input', this.list)
       this.$emit('change', $event.target.files)

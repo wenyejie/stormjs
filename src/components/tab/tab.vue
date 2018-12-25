@@ -116,8 +116,10 @@ export default {
      */
     toggle (item) {
       if (this.activeName === item.name) return
+      this.$emit('beforeToggle', this.activeName, item.name)
       this.activeName = item.name
       this.$emit('input', item.name)
+      this.$emit('toggle')
     },
 
     /**
@@ -125,9 +127,15 @@ export default {
      * @param item
      */
     addItem (item) {
-      this.list.push(item)
-      if (this.list.length === 1) {
-        this.toggle(item)
+      const child = this.list.find(({ name }) => name === item.name)
+      if (child) {
+        child.label = item.label
+        child.icon = item.icon
+      } else {
+        this.list.push(item)
+        if (this.list.length === 1) {
+          this.toggle(item)
+        }
       }
     },
 
@@ -156,7 +164,7 @@ export default {
       background-color: #fff;
 
       &-item {
-        color: #8391a5;
+        color: #888;
         cursor: pointer;
         padding: 12px 24px;
         transition: all .3s ease-in-out;
