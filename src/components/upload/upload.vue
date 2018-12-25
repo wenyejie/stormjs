@@ -27,17 +27,6 @@
 import { upload } from '../../apis/upload'
 import isPositiveInteger from '../../utils/isPositiveInteger'
 
-// 获取文件二进制数据
-function getFileBinary (file, cb) {
-  const reader = new FileReader()
-  reader.readAsArrayBuffer(file)
-  reader.onload = function (e) {
-    if (typeof cb === 'function') {
-      cb.call(this, this.result)
-    }
-  }
-}
-
 export default {
   name: 'SUpload',
   props: {
@@ -89,7 +78,7 @@ export default {
     },
 
     // 选完文件之后自动上传
-    auto: {
+    automatic: {
       type: Boolean,
       default: true
     },
@@ -155,25 +144,44 @@ export default {
 
     // 上传
     handleUpload (files) {
-      getFileBinary(files[0], binary => {
-        const fd = new FormData()
-        fd.append('file', binary)
-        fd.append('fileName', Date.now())
-        fd.append('businessType', 100)
-        console.log(fd)
-        debugger
-        upload(fd)
-      })
+      const fd = new FormData()
+      fd.append('file', files)
+      fd.append('fileName', Date.now())
+      fd.append('businessType', 100)
+      this.$emit('before', fd)
+      upload(fd)
+        .then(response => {
+          this.$emit('success', response)
+        }, (event) => {
+          this.$emit('error', event)
+        })
+        .finally(() => {
+          this.$emit('after')
+        })
 
+    },
+
+    /**
+     * 上传, 可供外部调用
+     */
+    upload () {
+      this.list.forEach(item => {
+        this.handleUpload(item)
+      })
+      this.list = []
     },
 
     // 变更
     handleChange ($event) {
       const length = $event.target.files.length
       for (let i = 0; i < length; i++) {
-        this.list.push($event.target.files[i])
+        if (this.minlength && this.list.length > this.minlength) {
+          this.list.push($event.target.files[i])
+        }
       }
-      this.handleUpload($event.target.files)
+      if (this.automatic) {
+        this.upload()
+      }
       $event.target.value = ''
       this.$emit('input', this.list)
       this.$emit('change', $event.target.files)
