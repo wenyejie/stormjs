@@ -96,6 +96,9 @@ const defOpts = {
       change: (xhr, formData) => {
         formData.append('businessType', 100)
         formData.append('fileName', Date.now())
+
+        console.log(xhr, formData)
+        debugger
       }
     }
   },
