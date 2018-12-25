@@ -20,6 +20,7 @@ const instance = axios.create({
     'X-zq-from-app': process.env.VUE_APP_X_ZQ_FROM_APP
   },
   transformRequest: [(data) => {
+    if (data instanceof FormData) return data
     if (serialize === false) {
       return JSON.stringify(data)
     }
