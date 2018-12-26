@@ -6,9 +6,8 @@
  -->
 <template>
   <s-layout>
-    <s-upload>上传文件</s-upload>
-
-    <s-editor />
+    <s-upload v-model="demo">上传文件</s-upload>
+    {{ demo }}
   </s-layout>
 </template>
 
@@ -20,7 +19,7 @@ export default {
   filters: { trimRight },
   data () {
     return {
-      demo: '  2121  '
+      demo: ''
     }
   },
   watch: {

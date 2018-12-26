@@ -8,18 +8,35 @@
   <div
     :class="classes"
     class="s-upload">
-    <label class="s-upload-label">
+    <div
+      @click="handleClick"
+      class="s-upload-label">
       <input
         :multiple="multiple"
         :disabled="disabled"
         :required="required"
         :accept="accept"
         :name="name"
+        ref="input"
         class="s-upload-input"
         type="file"
         @change="handleChange">
       <slot />
-    </label>
+    </div>
+    <ul
+      v-if="mode !== 'default'"
+      class="s-upload-list">
+      <li
+        v-for="(item, index) in list"
+        :key="index"
+        :class="`is-${item.status}`"
+        class="s-upload-item">
+        {{ item.name }}
+        <span
+          @click="handleRemove(item, index)"
+          class="s-upload-remove">×</span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -39,6 +56,33 @@ export default {
     value: {
       type: [String, Object, Array],
       default: undefined
+    },
+
+    // 模式, default: 默认, list: 列表, image: 图片, image-list: 图标列表
+    mode: {
+      type: String,
+      default: 'default',
+      validator (val) {
+        return ['default', 'text-list', 'card', 'card-list'].includes(val)
+      }
+    },
+
+    // 是否拖拽上传
+    drag: {
+      type: Boolean,
+      default: false
+    },
+
+    // 是否自动提示错误信息
+    remind: {
+      type: Boolean,
+      default: true
+    },
+
+    // 上传成功返回的有值文件地址对象字段
+    valueKey: {
+      type: String,
+      default: 'filePath'
     },
 
     // 表单名称
@@ -63,6 +107,13 @@ export default {
     repeat: {
       type: Boolean,
       default: false
+    },
+
+    repeatField: {
+      type: Array,
+      default () {
+        return ['name']
+      }
     },
 
     // 是否必须
@@ -130,60 +181,131 @@ export default {
   },
   data () {
     return {
-      list: []
+      // 文件列表
+      list: [],
+      innerVal: this.multiple ? (this.value || []) : (this.value || '')
+
     }
   },
   computed: {
     classes () {
       return {
-        's-upload-block': !!this.block
+        's-upload-block': !!this.block,
+        [`s-upload-${this.mode}`]: this.mode
       }
     }
   },
   methods: {
 
-    // 上传
-    handleUpload (files) {
+    /**
+     * 点击表单元素
+     * @return {void}
+     */
+    handleClick () {
+      this.$refs.input.click()
+    },
+
+    /**
+     * 移除文件
+     * @description 移除文件并执行钩子
+     * @param item {File} 被移除的文件
+     * @param index {Number} 文件下标
+     * @return {void}
+     */
+    handleRemove (item, index) {
+      this.$emit('beforeRemove', item, index)
+      this.list.splice(index, 1)
+      this.$emit('afterRemove', item)
+    },
+
+    /**
+     * 上传文件单个文件
+     * @param {File} file 被上传的文件
+     * @return {void}
+     */
+    handleUpload (file) {
       const fd = new FormData()
-      fd.append('file', files)
+      fd.append('file', file)
       fd.append('fileName', Date.now())
       fd.append('businessType', 100)
-      this.$emit('before', fd)
+      this.$emit('uploadBefore', fd)
       upload(fd)
         .then(response => {
-          this.$emit('success', response)
+          if (this.multiple) {
+            this.innerVal.push(response[this.valueKey])
+          } else {
+            this.innerVal = response[this.valueKey]
+          }
+          file.status = 'success'
+          this.$emit('input', this.innerVal)
+          this.$emit('uploadSuccess', response)
         }, (event) => {
-          this.$emit('error', event)
+          file.status = 'error'
+          this.$emit('uploadError', event)
+          this.handleError('upload', event.message, event)
         })
         .finally(() => {
-          this.$emit('after')
+          this.$emit('uploadAfter')
         })
 
     },
 
     /**
-     * 上传, 可供外部调用
+     * 信息错误
+     * @description 发生错误后者不符合规定
+     * @param {String} errType 错误类型
+     * @param {String} errMsg 提示信息
+     * @param {String?} errInfo 其它信息
+     * @return {void}
      */
-    upload () {
-      this.list.forEach(item => {
-        this.handleUpload(item)
-      })
-      this.list = []
+    handleError (errType, errMsg, errInfo) {
+      if (this.remind) {
+        this.$message.warning(errMsg)
+      }
+      this.$emit('error', errType, errMsg, errInfo)
+    },
+
+    /**
+     * 执行上传错误
+     * @description 可供外部调用 example: this.$refs.elem.submit()
+     * @return {void}
+     */
+    submit () {
+      if (this.minlength && this.minlength > this.list.length) {
+        this.handleError('minlength', `上传文件不能小于${this.minlength}个`)
+        return
+      }
+      this.list
+        .filter(item => item.status === 'wait')
+        .forEach(item => this.handleUpload(item))
     },
 
     // 变更
     handleChange ($event) {
       const length = $event.target.files.length
       for (let i = 0; i < length; i++) {
-        if (this.minlength && this.list.length > this.minlength) {
-          this.list.push($event.target.files[i])
+        if (this.maxlength && this.list.length > this.maxlength) {
+          break
         }
+        const file = $event.target.files[i]
+
+        // 判断文件是否重复
+        if (!this.repeat && this.list.length) {
+          const isRepeat = this.list.find(item => {
+            return file.name === item.name
+          })
+          if (isRepeat) {
+            this.handleError('repeat', `${file.name}文件重复`)
+            continue
+          }
+        }
+        file.status = 'wait'
+        this.list.push(file)
       }
       if (this.automatic) {
-        this.upload()
+        this.submit()
       }
       $event.target.value = ''
-      this.$emit('input', this.list)
       this.$emit('change', $event.target.files)
     }
   }
@@ -192,19 +314,20 @@ export default {
 
 <style lang="scss">
   .s-upload {
-    display: inline-block;
-    vertical-align: middle;
 
     &-label {
       display: block;
       width: 100%;
-      position: relative
+      position: relative;
+      cursor: pointer;
     }
 
     &-input {
       position: absolute;
       opacity: 0;
       visibility: hidden;
+      width: 0;
+      height: 0;
     }
 
     &-block {
