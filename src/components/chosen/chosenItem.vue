@@ -14,11 +14,13 @@
 </template>
 
 <script>
+import queryComponentParent from '../../utils/queryComponentParent'
+
 export default {
   name: 'SChosenItem',
   props: {
     value: {
-      type: [String, Boolean, Number, Object, Date, Array],
+      type: [String, Number, Object],
       default: ''
     },
     disabled: {
@@ -30,36 +32,39 @@ export default {
       default: ''
     }
   },
+  data () {
+    return {
+      parent: null
+    }
+  },
   computed: {
-    isGroup () {
-      return this.$parent.$options.name === 'SChosen'
-    },
 
-    // 是都多选
-    isMultiple () {
-      return this.$parent.multiple
-    },
-
-    // 是否有分隔符
-    isSeparator () {
-      return this.$parent.separator
-    },
-
-    selected () {
-      const innerVal = this.$parent.innerVal
-      return this.isMultiple ? innerVal.includes(this.isSeparator ? this.value + '' : this.value) : innerVal === this.value
-    },
     classes () {
       return {
-        'disabled': this.disabled,
-        'selected': this.selected
+        'is__selected': this.parent.selectedList.find(item => item._uid === this._uid),
+        'is__disabled': this.disabled
       }
     }
   },
+  created () {
+    this.parent = queryComponentParent(this, 'SChosen')
+    this.addSelf()
+  },
+  beforeDestroy () {
+    this.removeSelf()
+  },
   methods: {
     handleClick () {
-      if (this.isGroup && !this.disabled) {
-        this.$parent.handleItemClick(this, this.value)
+      if (!this.parent || this.disabled) return
+      this.parent.toggleItem(this._uid)
+    },
+    addSelf () {
+      if (!this.parent) return
+      this.parent.handleAdd(this)
+    },
+    removeSelf () {
+      if (this.parent) {
+        this.parent.handleRemove(this)
       }
     }
   }
@@ -78,18 +83,18 @@ export default {
     text-overflow: ellipsis;
     transition: background 0.3s ease;
 
-    &:not(.disabled):hover {
+    &:not(.is__disabled):hover {
       background-color: #e6f7ff;
     }
 
-    &.selected,
-    &.selected:hover {
+    &.is__selected,
+    &.is__selected:hover {
       background-color: #fafafa;
       font-weight: 600;
       color: rgba(0, 0, 0, 0.65);
     }
 
-    &.disabled {
+    &.is__disabled {
       color: rgba(0, 0, 0, 0.25);
       cursor: not-allowed;
     }

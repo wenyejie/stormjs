@@ -6,20 +6,49 @@
  -->
 <template>
   <s-layout>
-    <s-upload v-model="demo">上传文件</s-upload>
-    {{ demo }}
+    <s-input />
+    <s-chosen
+      placeholder="请选择..."
+      v-model="demo"
+      multiple>
+      <s-chosen-item
+        value="one"
+        label="ONE">ONE
+      </s-chosen-item>
+      <s-chosen-item
+        value="two"
+        label="TWO">TWO
+      </s-chosen-item>
+      <s-chosen-item
+        value="three"
+        label="THREE">THREE
+      </s-chosen-item>
+    </s-chosen>
+
+    <div>value: {{ demo }}</div>
+
+    <div class="list">
+      <div class="item">ONE</div>
+      <div class="item">TWO</div>
+      <div class="item">THREE</div>
+      <div class="item">FOUR</div>
+      <div class="item">FIVE</div>
+      <div class="item">SIX</div>
+      <div class="item">SEVEN</div>
+      <div class="item">EIGHT</div>
+      <div class="item">NINE</div>
+      <div class="item">TEN</div>
+    </div>
   </s-layout>
 </template>
 
 <script>
-import trimRight from '../filters/trimRight'
 
 export default {
   name: 'VDemo',
-  filters: { trimRight },
   data () {
     return {
-      demo: ''
+      demo: []
     }
   },
   watch: {
@@ -35,4 +64,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .list {
+    display: grid;
+    width: 320px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    background-color: #fff;
+  }
+
+  .item {
+    background-color: rgba(200, 194, 0, .75);
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+  }
 </style>

@@ -184,7 +184,7 @@ export default {
     font-size: $md;
 
     &-inner {
-      border-radius: 4px;
+      border-radius: 3px;
       border: 1px #ddd solid;
       line-height: 1;
       padding: 7px 10px;

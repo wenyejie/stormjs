@@ -89,7 +89,7 @@ export default {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: #fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAOCAMAAAAc7xz/AAAANlBMVEUAAACQkJCIiIiKioqIiIiIiIiJiYmJiYmIiIiJiYmJiYmLi4uWlpaIiIiJiYmIiIiNjY2IiIj17/lLAAAAEXRSTlMADcNx9chBvFeRgi8I6J6dHZWWLkcAAABMSURBVBjTdcg3AoAwEMTAJTpgwv7/szQGcQXqNPprO+sQ4ahNbbeXr6+zXXTZ3VEnKT2OOkvD2B2dJDwqjgbPKN5DcRRHg6PBS8rv3A4qBlJq9noAAAAAAElFTkSuQmCC') no-repeat right 11px center;
+    background: #fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA1klEQVQ4T92TMW7CQBBF//cNcooUaeAUSKSI0nIMCmbtSLQe+wJpI2gAiRMgECgp0uQaXAJZP1oJI0gMBXRsObvv7ejPLnHj4o087kng7htJ/TRNfy7lUhTFo6SpmbVJ6pBBnuevAD6SJOmY2XeTZA9/ARiGEN7jmZMQ95KRpG6WZZ/HEnd/ArA+hv8JYiFKSI5JvpjZMtbKsmxVVbUi+VbfXMsbx+juz5JmJHuStiQXANK/cGMHtTlKAMwl7UgOmuCLgrjp7h0ADyGEybnJ3NNLvPZX/gLXzFERrIKwMwAAAABJRU5ErkJggg==') no-repeat right 11px center;
     background-size: 12px;
 
     &[disabled] {
