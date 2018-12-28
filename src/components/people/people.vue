@@ -79,6 +79,9 @@ const user = {
       .then(response => {
         user.getting = 2
         user.list = response.dataList || []
+        user.list.forEach(item => {
+          item.checked = false
+        })
         this.listen()
       }, () => {
         user.getting = 3
@@ -261,9 +264,7 @@ export default {
           item.checked = false
         })
       }
-      let tmpChecked = item.checked
-      this.$delete(item, 'checked')
-      this.$set(item, 'checked', !tmpChecked)
+      item.checked = !item.checked
       this.handleInput(item)
       if (!this.multiple) {
         this.handleToggle()
@@ -288,7 +289,7 @@ export default {
       })
 
       result.forEach(item => {
-        this.$set(item, 'checked', true)
+        item.checked = true
       })
     }
   }
