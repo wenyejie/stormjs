@@ -227,9 +227,9 @@ export default {
       color: #909399;
       position: relative;
       border: 1px solid #dcdfe6;
-      border-radius: 4px;
+      border-radius: 3px;
       padding: 0 20px;
-      line-height: 36px;
+      line-height: 34px;
       white-space: nowrap;
     }
 

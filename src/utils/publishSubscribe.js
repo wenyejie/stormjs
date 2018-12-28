@@ -4,6 +4,7 @@
  * @author: Storm
  * @date: 2018-12-27
  */
+import arrayRemove from './arrayRemove'
 
 // 默认的选项
 const defaultOptions = {
@@ -54,20 +55,29 @@ export default class PublishSubscribe {
    * @param {Function} callback 订阅的回调
    * @return {void}
    */
-  subscribe (callback) {
+  on (callback) {
     this.subscriber.push(callback)
 
     // 如果有保留发布状态并且已经发布则立即进行回调
     if (this.options.retain && this.status === STATUS.PUBLISHED) {
-      this.callback()
+      this.implement()
     }
+  }
+
+  /**
+   * 解除订阅
+   * @param {Function} callback 回调
+   * @return {void}
+   */
+  off (callback) {
+    arrayRemove(this.subscriber, callback)
   }
 
   /**
    * 订阅回调
    * @return {void}
    */
-  callback () {
+  implement () {
 
     if (this.status !== STATUS.PUBLISHED) return
 
@@ -86,15 +96,15 @@ export default class PublishSubscribe {
   }
 
   /**
-   * 发布
+   * 触发
    * @param rest 发布传递的参数
    * @return {void}
    */
-  publish (...rest) {
+  trigger (...rest) {
     this.publishParams = rest
 
     this.status = 'published'
 
-    this.callback()
+    this.implement()
   }
 }
