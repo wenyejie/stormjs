@@ -26,19 +26,6 @@
     </s-chosen>
 
     <div>value: {{ demo }}</div>
-
-    <div class="list">
-      <div class="item">ONE</div>
-      <div class="item">TWO</div>
-      <div class="item">THREE</div>
-      <div class="item">FOUR</div>
-      <div class="item">FIVE</div>
-      <div class="item">SIX</div>
-      <div class="item">SEVEN</div>
-      <div class="item">EIGHT</div>
-      <div class="item">NINE</div>
-      <div class="item">TEN</div>
-    </div>
   </s-layout>
 </template>
 

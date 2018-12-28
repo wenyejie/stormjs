@@ -13,7 +13,7 @@ const defaultOptions = {
   retain: true,
 
   // 是否订阅每次发布
-  every: true,
+  every: false,
 
   // 默认的订阅者
   subscriber: []
@@ -39,7 +39,7 @@ export default class PublishSubscribe {
    * @return {void}
    */
   constructor (options = {}) {
-    this.options = Object.assign(options, defaultOptions)
+    this.options = Object.assign({}, defaultOptions, options)
 
     // 订阅者
     this.subscriber = this.options.subscriber
@@ -87,11 +87,12 @@ export default class PublishSubscribe {
     // 是否保留发布状态
     if (!this.options.retain) {
       this.status = STATUS.PADDING
+      this.publishParams = null
     }
 
     // 是否订阅每次发布
     if (!this.options.every) {
-      this.subscriber = []
+      this.subscriber.splice(0, this.subscriber.length)
     }
   }
 
