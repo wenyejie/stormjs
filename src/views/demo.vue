@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'VDemo',
   data () {
@@ -45,6 +44,14 @@ export default {
       },
       deep: true,
       immediate: true
+    }
+  },
+  created () {
+    this.init()
+  },
+  methods: {
+    init () {
+      console.log(this.name.join(','))
     }
   }
 }
