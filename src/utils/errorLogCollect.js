@@ -30,11 +30,23 @@ const collect = (type, error, info) => {
 }
 
 window.addEventListener('error', event => {
-  collect('WindowError', event.error, {
-    filename: event.filename,
-    lineno: event.lineno,
-    colno: event.colno
-  })
+  let result
+  let error = event.error
+
+  if (error) {
+    result = {
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno
+    }
+  } else {
+    error = {
+      name: '',
+      message: '',
+      stack: ''
+    }
+  }
+  collect('WindowError', error, result)
 }, true)
 
 export default collect
