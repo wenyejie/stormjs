@@ -26,6 +26,7 @@
     </s-chosen>
 
     <div>value: {{ demo }}</div>
+    <img src="http://www.baidu.com/demo.jpg">
   </s-layout>
 </template>
 

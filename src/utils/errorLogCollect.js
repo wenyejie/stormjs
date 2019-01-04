@@ -29,6 +29,16 @@ const collect = (type, error, info) => {
   console.log(result)
 }
 
+class ResourceError extends Error {
+  constructor (event) {
+    super()
+    const target = event.target
+    this.name = 'ResourceError'
+    this.message = `${target.localName} not found`
+    this.stack = `ResourceError: ${target.src || target.href} is not found\nat ${target.outerHTML}`
+  }
+}
+
 window.addEventListener('error', event => {
   let result
   let error = event.error
@@ -40,11 +50,7 @@ window.addEventListener('error', event => {
       colno: event.colno
     }
   } else {
-    error = {
-      name: '',
-      message: '',
-      stack: ''
-    }
+    error = new ResourceError(event)
   }
   collect('WindowError', error, result)
 }, true)

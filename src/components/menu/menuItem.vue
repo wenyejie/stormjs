@@ -142,7 +142,7 @@ export default {
     }
 
     &-icon {
-      width: 18px;
+      font-size: 20px;
       margin-right: 16px;
     }
 
