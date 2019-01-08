@@ -41,8 +41,7 @@
 </template>
 
 <script>
-// import { upload } from '../../apis/upload'
-import http from '../../cores/http.js'
+import { upload } from '../../apis/upload'
 import isPositiveInteger from '../../utils/isPositiveInteger'
 
 export default {
@@ -54,35 +53,9 @@ export default {
       default: false
     },
 
-    action: {
-      type: String,
-      default: '/api/file/file/upload'
-    },
-
-    method: {
-      type: String,
-      default: 'post'
-    },
-
-    fileName: {
-      type: String,
-      default: 'file'
-    },
-
     value: {
       type: [String, Object, Array],
       default: undefined
-    },
-
-    headers: {
-      type: Object,
-      default () {
-        return {
-          'X-zq-from-app': 'zhiqi-file',
-          'Accept': '*/*',
-          'Content-Type': 'multipart/form-data'
-        }
-      }
     },
 
     // 模式, default: 默认, list: 列表, image: 图片, image-list: 图标列表
@@ -103,7 +76,7 @@ export default {
     // 是否自动提示错误信息
     remind: {
       type: Boolean,
-      default: false
+      default: true
     },
 
     // 上传成功返回的有值文件地址对象字段
@@ -248,14 +221,15 @@ export default {
     /**
      * 上传文件单个文件
      * @param {File} file 被上传的文件
-     * @param {Number} index 下标
      * @return {void}
      */
-    handleUpload (file, index) {
+    handleUpload (file) {
       const fd = new FormData()
-      fd.append(this.fileName, file)
-      this.$emit('uploadBefore', { formData: fd, headers: this.headers })
-      http[this.method](this.action, fd, { headers: this.headers })
+      fd.append('file', file)
+      fd.append('fileName', Date.now())
+      fd.append('businessType', 100)
+      this.$emit('uploadBefore', fd)
+      upload(fd)
         .then(response => {
           if (this.multiple) {
             this.innerVal.push(response[this.valueKey])
@@ -268,14 +242,12 @@ export default {
         }, (event) => {
           file.status = 'error'
           this.$emit('uploadError', event)
-          this.handleError('upload', event.data.message || event.data.errorMsg, event)
+          this.handleError('upload', event.message, event)
         })
         .finally(() => {
-          if (!this.multiple) {
-            this.list.splice(index, 1)
-          }
           this.$emit('uploadAfter')
         })
+
     },
 
     /**
@@ -305,7 +277,7 @@ export default {
       }
       this.list
         .filter(item => item.status === 'wait')
-        .forEach((item, index) => this.handleUpload(item, index))
+        .forEach(item => this.handleUpload(item))
     },
 
     // 变更

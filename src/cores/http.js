@@ -20,7 +20,7 @@ const instance = axios.create({
     'X-zq-from-app': process.env.VUE_APP_X_ZQ_FROM_APP
   },
   transformRequest: [(data) => {
-    if (data instanceof FormData) return data
+    if (!(data instanceof Object) || (data instanceof FormData)) return data
     if (serialize === false) {
       return JSON.stringify(data)
     }
@@ -65,6 +65,10 @@ instance.interceptors.request.use((config = {}) => {
 // 响应拦截器
 instance.interceptors.response.use(response => {
   const data = response.data
+
+  if (!(data instanceof Object)) {
+    return data
+  }
 
   if (('success' in data && data.success === false) || data.errorCode) {
     Vue.prototype.$message.danger(data.info || data.code || data.errorMsg || data.errorCode || '服务器错误, 请重试!')
