@@ -1,0 +1,120 @@
+/**
+ * @author: Storm
+ * @date: 2019-01-09
+ * @email: wenyejie@foxmail.com
+ */
+import Vue from 'vue'
+import { set as cssSet } from './css.js'
+import elOnceEventListener from './elOnceEventListener.js'
+
+const defaultOptions = Object.freeze({
+  offset: 5,
+  /**
+   * 组件定位
+   * top, top-start, top-end, right, right-start, right-end,
+   * bottom, bottom-start, bottom-end, left, left-start, left-end
+   */
+  position: 'bottom-start'
+})
+
+// 下标
+let zIndex = 2048
+
+class ComponentDeparture {
+
+  /**
+   * 组件脱离文档流构造函数
+   * @param $component {VueClassComponent} Vue组件
+   * @param options {Object?} 选项
+   */
+  constructor ($component, options) {
+
+    // 合并选项
+    this.options = Object.assign({}, defaultOptions, this.options)
+    if (!this.options.zIndex) {
+      zIndex = zIndex + 1
+      this.options.zIndex = zIndex
+    }
+
+    this.$component = $component
+    this.status = 'padding'
+  }
+
+  /**
+   * 计算组件位置, 进行定位
+   */
+  computePosition () {
+    const $el = this.$component.$el
+    let top = 0
+    let left = 0
+    const elRect = $el.getBoundingClientRect()
+    const parentRect = this.$component.$parent.$el.getBoundingClientRect()
+    const innerHeight = window.innerHeight
+    // const innerWidth = window.innerWidth
+    const offset = this.options.offset
+
+    // left compute
+    switch (this.options.position) {
+      case 'top-start':
+      case 'bottom-start':
+        left = parentRect.left
+        break
+      default:
+        break
+    }
+
+    // top compute
+    switch (this.options.position) {
+      case 'bottom':
+      case 'bottom-start':
+      case 'bottom-end':
+        const tempTop = parentRect.top + parentRect.height + offset
+        const overstepTop = innerHeight - tempTop - elRect.height
+        if (overstepTop < 0) {
+          top = tempTop + overstepTop
+        } else {
+          top = tempTop
+        }
+        break
+      default:
+        break
+    }
+
+    cssSet($el, {
+      left: `${left}px`,
+      top: `${top}px`,
+      zIndex: `${this.options.zIndex}`
+    })
+  }
+
+  departure () {
+    if (this.status === 'completed') {
+      this.computePosition()
+    } else {
+      Vue.nextTick(() => {
+        this.status = 'completed'
+        document.body.appendChild(this.$component.$el)
+        this.computePosition()
+      })
+    }
+  }
+
+  show () {
+    this.$component.innerVal = 1
+    this.departure()
+    elOnceEventListener.add(this.hide.bind(this))
+  }
+
+  hide () {
+    this.$component.innerVal = 2
+    elOnceEventListener.remove(this.hide.bind(this))
+  }
+
+  remove () {
+    elOnceEventListener.remove(this.hide.bind(this))
+    document.body.removeChild(this.$component.$el)
+  }
+
+}
+
+export default ComponentDeparture

@@ -9,16 +9,19 @@
     <s-input
       v-model="innerFormatVal"
       :name="name"
-      :readonly="readonly"
       :disabled="disabled"
       class="s-timePicker-input"
-      @click="handleClick" />
+      @focus="handleFocus"
+      @blur="handleBlur" />
     <s-icon
       type="time"
       class="s-timePicker-prefix" />
-    <s-dropdown
+    <div
+      v-if="spinnerVisible !== 0"
+      v-show="spinnerVisible === 1"
       class="s-timePicker-spinner"
-      v-model="spinnerVisible">
+      @mouseover="handleMouseOver"
+      @mouseout="handleMouseOut">
       <div class="s-timePicker-spinner-body">
         <s-time-picker-spinner
           :list="hours"
@@ -51,13 +54,14 @@
           @click="handleOk">确定
         </button>
       </div>
-    </s-dropdown>
+    </div>
   </div>
 </template>
 
 <script>
 import isDate from '../../utils/isDate'
 import zeroize from '../../filters/zeroize'
+import elOverflowToggle from '../../utils/elOverflowToggle'
 import sTimePickerSpinner from './spinner.vue'
 import date from '../../filters/date'
 
@@ -93,7 +97,7 @@ export default {
     // 是否只读
     readonly: {
       type: Boolean,
-      default: true
+      default: false
     },
 
     // 是否禁用
@@ -206,8 +210,21 @@ export default {
       this.change(isVisible)
     },
 
-    handleClick () {
-      this.spinnerVisible = this.spinnerVisible === 1 ? 2 : 1
+    handleFocus () {
+      this.spinnerVisible = 1
+    },
+
+    handleBlur () {
+      if (!this.isMouseOver) this.removeSpinner()
+    },
+    handleMouseOver () {
+      this.isMouseOver = true
+      elOverflowToggle(true)
+    },
+
+    handleMouseOut () {
+      this.isMouseOver = false
+      elOverflowToggle(false)
     }
   }
 }
@@ -215,7 +232,6 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
-
   .s-timePicker {
     position: relative;
 
@@ -227,9 +243,9 @@ export default {
       transform: translateY(-50%);
     }
 
-    /*& > &-input {
+    & > &-input {
       padding-left: 20px;
-    }*/
+    }
 
     &-spinner {
       position: absolute;
@@ -254,7 +270,6 @@ export default {
         filter: drop-shadow(0 2px 12px rgba(0, 0, 0, .03));
         top: -7px;
       }
-
       &:after {
         @include triangle-top(#fff, 6px, 6px, 6px);
         top: -6px;

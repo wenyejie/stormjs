@@ -5,22 +5,20 @@
  - @date: 2018/11/02
  -->
 <template>
-  <transition name="fade">
-    <div
-      ref="dropdown"
-      v-if="innerVal !== 0"
-      v-show="innerVal === 1"
-      :class="classes"
-      class="s-dropdown fade"
-      @click="handleClick">
-      <slot />
-    </div>
-  </transition>
+  <div
+    ref="dropdown"
+    v-if="innerVal !== 0"
+    v-show="innerVal === 1"
+    :class="classes"
+    class="s-dropdown"
+    @click="handleClick">
+    <slot />
+  </div>
 </template>
 
 <script>
-import componentDeparture from '../../utils/componentDeparture.js'
-import elOnceEventListener from '../../utils/elOnceEventListener.js'
+import elOnceEventListener from '../../utils/elOnceEventListener'
+import ComponentDeparture from '../../utils/componentDeparture.js'
 
 export default {
   name: 'SDropdown',
@@ -91,40 +89,66 @@ export default {
       if (val === oldVal) return
       this.innerVal = val
       if (val === 1) {
-        this.addListener()
+        if (this.departure) {
+          this.departureInstance.show()
+        } else {
+          this.addListener()
+        }
       } else if (val === 2) {
-        this.removeListener()
+        if (this.departure) {
+          this.departureInstance.hide()
+        } else {
+          this.removeListener()
+        }
       }
     }
   },
   mounted () {
 
-    if (this.innerVal > 0) {
-      this.addListener()
+    // 脱离文档流
+    if (this.departure) {
+      this.departureInstance = new ComponentDeparture(this)
+    } else {
+      if (this.innerVal > 0) {
+        this.addListener()
+      }
     }
   },
   beforeDestroy () {
     this.removeListener()
-    componentDeparture.destroy(this.$el)
   },
   methods: {
 
-    show () {
-      componentDeparture.show(this.$el, this.$parent.$el)
-      if (this.innerVal === 1 && this.autoClose) {
-        elOnceEventListener.add(this.docClickCb)
-      }
-    },
-
+    // 加入监听
     addListener () {
-      if (this.$el.isBodyAppend) {
-        this.show()
+      if (!this.isPosition) {
+        this.$nextTick(() => {
+          const { top, height } = this.$el.getBoundingClientRect()
+          const clientHeight = document.documentElement.clientHeight
+          if (top + height > clientHeight) {
+            this.$el.style.top = `${clientHeight - top - height + 36}px`
+          } else {
+            this.$el.style.top = ''
+          }
+          this.isPosition = true
+        })
       }
-      this.$nextTick(this.show)
+      if (this.innerVal === 1 && this.autoClose) {
+        this.$nextTick()
+          .then(() => {
+            elOnceEventListener.add(this.docClickCb)
+          }, () => {
+          })
+      }
     },
 
+    // 移除监听
     removeListener () {
       elOnceEventListener.remove(this.docClickCb)
+      // if (this.innerVal === 1 && this.autoClose) {
+      //   console.log('remove......')
+      //   elOnceEventListener.remove(this.docClickCb)
+      // }
     },
 
     // document点击回调

@@ -46,17 +46,22 @@ export default {
     }
   },
   mounted () {
-    this.$el.scrollTop = this.value * 36
+    this.$nextTick(() => {
+      this.initializeScroll(this.value)
+    })
   },
   created () {
     this.oldInnerVal = this.innerVal
     this.list[this.value].selected = true
   },
   methods: {
+    initializeScroll (value) {
+      this.$el.scrollTop = value * 36
+    },
     handleChange (item, isVisible) {
       if (item.disabled || item.value === this.oldInnerVal) return
       this.oldInnerVal = item.value
-      this.innerVal = item
+      this.innerVal = item.value
       this.list.filter(item => item.selected).forEach(item => {
         item.selected = false
       })
@@ -66,11 +71,15 @@ export default {
     },
 
     scrollComputed (scrollTop) {
-      this.handleChange(this.list[Math.round(scrollTop / 36)], false)
+      const value = Math.round(scrollTop / 36)
+      if (this.oldInnerVal === value) {
+        return
+      }
+      this.handleChange(this.list[value], false)
     },
     handleScroll ($event) {
       clearTimeout(this.timer)
-      this.timer = setTimeout(this.scrollComputed.bind(this, $event.target.scrollTop), 32)
+      this.timer = setTimeout(this.scrollComputed.bind(this, $event.target.scrollTop), 100)
     },
 
     handleClick (item) {

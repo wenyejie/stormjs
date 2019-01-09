@@ -6,27 +6,11 @@
  -->
 <template>
   <s-layout>
-    <s-input />
-    <s-chosen
-      placeholder="请选择..."
-      v-model="demo"
-      multiple>
-      <s-chosen-item
-        value="one"
-        label="ONE">ONE
-      </s-chosen-item>
-      <s-chosen-item
-        value="two"
-        label="TWO">TWO
-      </s-chosen-item>
-      <s-chosen-item
-        value="three"
-        label="THREE">THREE
-      </s-chosen-item>
-    </s-chosen>
+    <!--<s-upload>上传</s-upload>-->
 
-    <div>value: {{ demo }}</div>
-    <img src="http://www.baidu.com/demo.jpg">
+    <s-time-picker />
+
+    <s-date-time-picker />
   </s-layout>
 </template>
 
@@ -52,7 +36,6 @@ export default {
   },
   methods: {
     init () {
-      console.log(this.name.join(','))
     }
   }
 }

@@ -36,6 +36,7 @@
       :placeholder="placeholder"
       :autocomplete="autocomplete"
       class="s-input-inner"
+      @click="handleClick($event)"
       @input="handleInput($event)"
       @change="handleChange($event)"
       @keyup="handleKeyup($event)"
@@ -171,6 +172,10 @@ export default {
 
     handleMousedown ($event) {
       this.$emit('mousedown', $event)
+    },
+
+    handleClick ($event) {
+      this.$emit('click', $event)
     }
   }
 }
@@ -178,6 +183,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-input {
     position: relative;
     display: inline-block;
@@ -291,6 +297,7 @@ export default {
 
     &-lg {
       font-size: $lg;
+
       &-inner {
         padding: 12px 13px;
       }
@@ -298,6 +305,7 @@ export default {
 
     &-sm {
       font-size: $sm;
+
       &-inner {
         padding: 4.5px 7px;
       }
@@ -305,6 +313,7 @@ export default {
 
     &-xs {
       font-size: $xs;
+
       &-inner {
         padding: 0.5px 3px;
       }
