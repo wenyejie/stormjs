@@ -3,7 +3,6 @@
  * @date: 2019-01-09
  * @email: wenyejie@foxmail.com
  */
-import Vue from 'vue'
 import { set as cssSet } from './css.js'
 import isElement from './isElement.js'
 
@@ -84,10 +83,9 @@ export default {
     options = Object.assign({}, defaultOptions, options)
     if (!$element.isBodyAppend) {
       document.body.appendChild($element)
-      Vue.nextTick(this.compute.bind(null, $element, $parent, options))
-    } else {
-      this.compute($element, $parent, options)
     }
+
+    this.compute($element, $parent, options)
 
   },
 
