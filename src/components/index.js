@@ -41,6 +41,7 @@ import sDropdown from './dropdown'
 import sDate from './datetime/date.vue'
 import sTime from './datetime/time.vue'
 import SEditor from './editor'
+import DynamicBlock from './dynamicBlock/dynamicBlock.vue'
 
 const components = {
   sLayout,
@@ -86,7 +87,8 @@ const components = {
   sDropdown,
   sDate,
   sTime,
-  SEditor
+  SEditor,
+  DynamicBlock
 }
 
 const install = (Vue) => {

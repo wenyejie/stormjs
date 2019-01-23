@@ -11,6 +11,10 @@
     <s-time-picker />
 
     <s-date-time-picker />
+
+    <dynamic-block>
+      <div slot="dragContent">测试拖动大小</div>
+    </dynamic-block>
   </s-layout>
 </template>
 
