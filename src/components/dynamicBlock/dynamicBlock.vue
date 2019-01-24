@@ -3,7 +3,7 @@
  * @Author: Ntfs
  * @Date: 2019-01-23 16:57:30
  * @LastEditors: Ntfs
- * @LastEditTime: 2019-01-23 17:18:50
+ * @LastEditTime: 2019-01-24 21:14:24
  -->
 
 <template>
@@ -12,9 +12,6 @@
     :style="{'height': `${warpHeight}px`, 'width': `${warpWidth}px` }"
     :class="`dragWrap ${propClass} ${active ? 'active' : ''}`">
     <div class="dragContent">
-      <div
-        ref="dragMask"
-        class="dragMask" />
       <slot name="dragContent" />
     </div>
     <!-- <div
@@ -49,6 +46,18 @@
 
 import Drag from './dragable'
 
+function findNode (el, target) {
+  let tmp = el
+  while (tmp) {
+    if (tmp === target) {
+      return true
+    } else {
+      tmp = tmp.parentElement
+    }
+  }
+  return false
+}
+
 export default {
   name: 'DynamicBlock',
   components: {},
@@ -64,6 +73,10 @@ export default {
     propClass: {
       type: String,
       default: ''
+    },
+    cancelEle: {
+      type: String,
+      default: 'body'
     }
   },
   data () {
@@ -78,20 +91,36 @@ export default {
   },
   mounted () {
     this.canDrag = new Drag()
-    const _this = this
-    document.querySelector('body').addEventListener('click', function (event) {
-      if (event.target === _this.$refs.dragWrap || event.target === _this.$refs.dragMask) {
-        _this.active = true
-      } else if (event.target !== _this.$refs.lefTop && event.target !== _this.$refs.top && event.target !== _this.$refs.rightTop && event.target !== _this.$refs.right && event.target !== _this.$refs.rightBottom && event.target !== _this.$refs.bottom && event.target !== _this.$refs.lefBottom && event.target !== _this.$refs.lef) {
-        _this.active = false
+    let Ele
+    try {
+      Ele = document.querySelector(this.cancelEle)
+    } catch (error) {
+      throw new Error('please give a right dom element!')
+    }
+    if (!Ele) {
+      throw new Error('cancelEle must be a dom element!')
+    }
+    Ele.addEventListener('click', (event) => {
+      if (event.target === this.$refs.dragWrap || event.target === this.$refs.dragContent) {
+        this.active = true
+        this.$emit('active', 11111)
+      } else if (findNode(event.target, this.$refs.dragWrap) === true) {
+        this.active = true
+        this.$emit('active', 11111)
+      } else if (findNode(event.target, this.$refs.dragWrap) === false) {
+        this.active = false
+      } else if (event.target !== this.$refs.rightBottom) {
+        this.active = true
+      } else {
+        this.active = false
       }
     })
     this.canDrag.init({
       el: this.$refs.rightBottom,
-      toMove: function (ev, position) {
+      toMove: (ev, position) => {
         ev.stopPropagation()
-        _this.warpWidth = position.X + 14
-        _this.warpHeight = position.Y + 14
+        this.warpWidth = position.X + 14
+        this.warpHeight = position.Y + 14
       }
     })
   },
