@@ -1,44 +1,24 @@
 <!--
- * @Description: 可调节大小展示块
+ * @Description: file content
  * @Author: Ntfs
  * @Date: 2019-01-23 16:57:30
  * @LastEditors: Ntfs
- * @LastEditTime: 2019-01-24 21:14:24
+ * @LastEditTime: 2019-01-30 11:20:31
  -->
 
 <template>
   <div
     ref="dragWrap"
-    :style="{'height': `${warpHeight}px`, 'width': `${warpWidth}px` }"
+    :style="{'height': `${warpHeight}px`, 'width': `${warpWidth}px`, 'display': `${block}` }"
     :class="`dragWrap ${propClass} ${active ? 'active' : ''}`">
-    <div class="dragContent">
-      <slot name="dragContent" />
+    <div
+      class="dragContent">
+      <slot
+        name="dragContent" />
     </div>
-    <!-- <div
-      ref="lefTop"
-      :class="`dragIcon lefTop ${active ? '' : 'hide'}`" /> -->
-    <!-- <div
-      ref="top"
-      :class="`dragIcon top ${active ? '' : 'hide'}`" /> -->
-    <!-- <div
-      ref="rightTop"
-      :class="`dragIcon rightTop ${active ? '' : 'hide'}`" /> -->
-    <!-- <div
-      ref="right"
-      :class="`dragIcon right ${active ? '' : 'hide'}`" /> -->
     <div
       ref="rightBottom"
       :class="`dragIcon rightBottom ${active ? '' : 'hide'}`" />
-      <!-- <div
-      ref="bottom"
-      :class="`dragIcon bottom ${active ? '' : 'hide'}`" /> -->
-      <!-- <div
-      ref="leftBottom"
-      :class="`dragIcon leftBottom ${active ? '' : 'hide'}`" /> -->
-      <!-- <div
-      ref="left"
-      :class="`dragIcon left ${active ? '' : 'hide'}`" /> -->
-
   </div>
 </template>
 
@@ -77,17 +57,19 @@ export default {
     cancelEle: {
       type: String,
       default: 'body'
+    },
+    block: {
+      type: String,
+      default: 'inline-block'
     }
   },
   data () {
     return {
+      timer: null,
       active: false,
       warpWidth: this.width,
       warpHeight: this.height
     }
-  },
-  watch: {
-
   },
   mounted () {
     this.canDrag = new Drag()
@@ -103,10 +85,10 @@ export default {
     Ele.addEventListener('click', (event) => {
       if (event.target === this.$refs.dragWrap || event.target === this.$refs.dragContent) {
         this.active = true
-        this.$emit('active', 11111)
+        this.$emit('active')
       } else if (findNode(event.target, this.$refs.dragWrap) === true) {
         this.active = true
-        this.$emit('active', 11111)
+        this.$emit('active')
       } else if (findNode(event.target, this.$refs.dragWrap) === false) {
         this.active = false
       } else if (event.target !== this.$refs.rightBottom) {
@@ -115,17 +97,38 @@ export default {
         this.active = false
       }
     })
+
     this.canDrag.init({
       el: this.$refs.rightBottom,
       toMove: (ev, position) => {
         ev.stopPropagation()
         this.warpWidth = position.X + 14
         this.warpHeight = position.Y + 14
+        // this.debounce(500)
+      },
+      toUp: () => {
+        this.$emit('getResult', {
+          width: this.warpWidth,
+          height: this.warpHeight
+        })
       }
     })
   },
   methods: {
-
+    debounce (wait) {
+      var context = this
+      var args = arguments
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+      this.timer = setTimeout(() => {
+        this.$emit('move', {
+          width: this.warpWidth,
+          height: this.warpHeight
+        })
+      }, wait)
+    }
   }
 }
 </script>
@@ -135,8 +138,9 @@ export default {
     display: inline-block;
     position: relative;
     border: 1px solid transparent;
-    padding: 2px;
+    padding: 1px;
     overflow: hidden;
+    vertical-align: top;
     .dragIcon {
       z-index: 11;
       cursor: move !important;
@@ -144,61 +148,12 @@ export default {
       height: 12px;
       width: 12px;
       position: absolute;
-      &.lefTop {
-        cursor: se-resize;
-        top: 0;
-        left: 0;
-        border-top: 2px solid #0FACF3;
-        border-left: 2px solid #0FACF3;
-      }
-      &.top {
-        cursor: s-resize;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        border-top: 2px solid #0FACF3;
-      }
-      &.rightTop {
-        cursor: sw-resize;
-        top: 0;
-        right: 0;
-        border-top: 2px solid #0FACF3;
-        border-right: 2px solid #0FACF3;
-      }
-      &.right {
-        cursor: w-resize;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 0;
-        border-right: 2px solid #0FACF3;
-      }
       &.rightBottom {
         cursor: nw-resize;
         bottom: 0;
         right: 0;
         border-bottom: 2px solid #0FACF3;
         border-right: 2px solid #0FACF3;
-      }
-      &.bottom {
-        cursor: n-resize;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        border-bottom: 2px solid #0FACF3;
-      }
-      &.leftBottom {
-        cursor: ne-resize;
-        bottom: 0;
-        left: 0;
-        border-bottom: 2px solid #0FACF3;
-        border-left: 2px solid #0FACF3;
-      }
-      &.left {
-        cursor: e-resize;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-        border-left: 2px solid #0FACF3;
       }
       &.hide {
         display: none;
@@ -208,15 +163,6 @@ export default {
       width: 100%;
       height: 100%;
       position: relative;
-      .dragMask {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 10;
-        width: 100%;
-        height: 100%;
-        background: transparent;
-      }
     }
     &.active {
       border: 1px solid #0FACF3;
