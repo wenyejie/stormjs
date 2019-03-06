@@ -3,7 +3,7 @@
  * @Author: Ntfs
  * @Date: 2019-01-23 16:57:30
  * @LastEditors: Ntfs
- * @LastEditTime: 2019-01-30 11:20:31
+ * @LastEditTime: 2019-03-06 16:29:56
  -->
 
 <template>
@@ -116,8 +116,6 @@ export default {
   },
   methods: {
     debounce (wait) {
-      var context = this
-      var args = arguments
       if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null

@@ -42,6 +42,7 @@ import sDate from './datetime/date.vue'
 import sTime from './datetime/time.vue'
 import SEditor from './editor'
 import DynamicBlock from './dynamicBlock/dynamicBlock.vue'
+import STransfer from './transfer'
 
 const components = {
   sLayout,
@@ -88,7 +89,8 @@ const components = {
   sDate,
   sTime,
   SEditor,
-  DynamicBlock
+  DynamicBlock,
+  STransfer
 }
 
 const install = (Vue) => {
