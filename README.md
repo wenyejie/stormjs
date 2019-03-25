@@ -19,3 +19,8 @@ npm run build
 ```
 npm run lint
 ```
+
+### 发布倒线上
+```
+npm run publish
+```
