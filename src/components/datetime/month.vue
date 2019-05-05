@@ -9,13 +9,15 @@
     <header class="s-datetime-header">
       <button
         class="s-datetime-btn prev"
-        @click="handlePrevYear">«</button>
+        @click="handlePrevYear">«
+      </button>
       <span
         class="s-datetime-label"
         @click="handleYear">{{ (innerVal || new Date()) | date('YYYY') }}年</span>
       <button
         class="s-datetime-btn next"
-        @click="handleNextYear">»</button>
+        @click="handleNextYear">»
+      </button>
     </header>
     <div class="s-datetime-body">
       <table class="s-datetime-table month">
@@ -147,6 +149,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/datetime.scss";
+
   .s-datetime-table.month {
     td {
       padding: 16px 0;

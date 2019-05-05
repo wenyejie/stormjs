@@ -10,12 +10,15 @@
 .s-placeholder {
   color: $placeholder;
 }
+
 ::-webkit-input-placeholder {
   color: $placeholder;
 }
+
 :-moz-placeholder {
   color: $placeholder;
 }
+
 :-ms-input-placeholder {
   color: $placeholder;
 }

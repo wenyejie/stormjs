@@ -12,11 +12,15 @@ export default class Drag {
     this.disX = 0
     this.disY = 0
     this.settings = {
-      toDown: function (ev) {},
-      toUp: function (ev) {},
-      toMove: function () {}
+      toDown: function (ev) {
+      },
+      toUp: function (ev) {
+      },
+      toMove: function () {
+      }
     }
   }
+
   init = function (opt) {
     var This = this
     if (opt.id) {
@@ -61,11 +65,13 @@ export default class Drag {
     document.onmouseup = null
   }
 }
+
 function extend (obj1, obj2) {
   for (var attr in obj2) {
     obj1[attr] = obj2[attr]
   }
 }
+
 // export default function Drag () {
 //   this.obj = null
 //   this.disX = 0

@@ -10,7 +10,9 @@
     class="s-input">
     <span
       v-if="$slots.prepend"
-      class="s-input-prepend"><slot name="prepend" /></span>
+      class="s-input-prepend">
+      <slot name="prepend" />
+    </span>
     <span
       v-if="$slots.prefix || prefixicon"
       class="s-input-prefix">
@@ -47,7 +49,9 @@
       @blur="handleBlur($event)">
     <span
       v-if="$slots.append"
-      class="s-input-append"><slot name="append" /></span>
+      class="s-input-append">
+      <slot name="append" />
+    </span>
     <span
       v-if="$slots.suffix || suffixicon"
       class="s-input-suffix">

@@ -6,6 +6,7 @@
  */
 
 import isElement from './isElement'
+
 const defStyles = {
   visibility: 'hidden',
   position: 'absolute',

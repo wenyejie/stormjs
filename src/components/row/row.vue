@@ -77,30 +77,39 @@ export default {
     &-justify-left {
       justify-content: flex-start;
     }
+
     &-justify-right {
       justify-content: flex-end;
     }
+
     &-justify-center {
       justify-content: center;
     }
+
     &-justify-between {
       justify-content: space-between;
     }
+
     &-justify-around {
       justify-content: space-around;
     }
+
     &-justify-evenly {
       justify-content: space-evenly;
     }
+
     &-align-top {
       align-items: flex-start;
     }
+
     &-align-bottom {
       align-items: flex-end;
     }
+
     &-align-center {
       align-items: center;
     }
+
     &-align-stretch {
       align-items: stretch;
     }

@@ -15,7 +15,7 @@
       :origin-value="userList"
       :select-value="[]"
       filter-key="name"
-      @changeSelect="getSelectData"/>
+      @changeSelect="getSelectData" />
   </s-layout>
 </template>
 
@@ -82,6 +82,7 @@ export default {
     text-align: center;
     line-height: 100px;
   }
+
   .box {
     width: 600px;
     height: 300px;

@@ -103,7 +103,7 @@ $xs: 10px;
 }
 
 /* 多行省略 */
-@mixin multi-text-ellipsis ($line) {
+@mixin multi-text-ellipsis($line) {
   /*display: -webkit-box;
   -webkit-line-clamp: $line;
   -webkit-box-orient: vertical;
@@ -117,7 +117,7 @@ $xs: 10px;
 }
 
 /* 小圆环 $rColor为rgba 透明度0.2*/
-@mixin circleSty($color,$rColor){
+@mixin circleSty($color,$rColor) {
   background: $rColor;
   display: inline-block;
   text-align: center;
@@ -126,7 +126,7 @@ $xs: 10px;
   height: 18px;
   border-radius: 50%;
   margin-right: 8px;
-  i{
+  i {
     background: $color;
     width: 10px;
     height: 10px;

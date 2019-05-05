@@ -95,9 +95,9 @@ export default {
   },
   methods: {
     /**
-         * 点击事件
-         * @param $event 事件
-         */
+     * 点击事件
+     * @param $event 事件
+     */
     handleClick ($event) {
       this.$emit('click', $event)
     }
@@ -107,6 +107,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-button {
     display: inline-block;
     cursor: pointer;

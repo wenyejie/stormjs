@@ -103,6 +103,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .aside {
     width: 200px;
     background-color: #2f363c;
@@ -126,6 +127,7 @@ export default {
       img {
         width: 31px;
       }
+
       span {
         margin-left: 16.8px;
         @include text-ellipsis;

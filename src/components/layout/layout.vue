@@ -48,12 +48,14 @@ export default {
     align-items: stretch;
     min-height: 100vh;
   }
+
   .s-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
+
   .s-main {
     padding: 24px;
     flex: 1;
@@ -66,6 +68,7 @@ export default {
     &-c {
     }
   }
+
   .s-body {
     display: flex;
     flex: 1;

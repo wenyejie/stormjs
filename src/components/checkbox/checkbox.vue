@@ -22,7 +22,9 @@
       @change="handleChange($event)"
       @click="handleClick($event)">
     <span class="s-checkbox-indi" />
-    <span class="s-checkbox-desc"><slot /></span>
+    <span class="s-checkbox-desc">
+      <slot />
+    </span>
   </label>
 </template>
 
@@ -66,8 +68,8 @@ export default {
   computed: {
 
     /**
-         * className
-         */
+     * className
+     */
     classes () {
       return [
         {
@@ -105,9 +107,9 @@ export default {
   methods: {
 
     /**
-         * 选中checkbox
-         * @param $event 选中值
-         */
+     * 选中checkbox
+     * @param $event 选中值
+     */
     handleChange ($event) {
       this.checked = $event.target.checked
       if (this.isGroup) {
@@ -123,8 +125,8 @@ export default {
     },
 
     /**
-         * 设置是否选中
-         */
+     * 设置是否选中
+     */
     setChecked () {
       // 判断是否为群组
       if (this.isGroup) { // 是

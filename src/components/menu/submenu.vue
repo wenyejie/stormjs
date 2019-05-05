@@ -19,9 +19,11 @@ export default {
 <style lang="scss">
   .s-submenu {
     display: none;
+
     .s-menu-item {
       background-color: #252d34;
     }
+
     .s-menu-link {
       padding-left: 58px;
     }

@@ -175,6 +175,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-dateTimePicker {
     display: inline-block;
     vertical-align: middle;
@@ -187,6 +188,7 @@ export default {
     &-inner {
       width: 284px;
     }
+
     &-footer {
       height: 36px;
       display: flex;
@@ -218,6 +220,7 @@ export default {
       &.prev {
         float: left;
       }
+
       &.next {
         float: right;
       }

@@ -52,9 +52,9 @@ export default {
   computed: {
 
     /**
-         * 样式
-         * @return {Object}
-         */
+     * 样式
+     * @return {Object}
+     */
     classes () {
       return {
         [`s-mask-absolute`]: !!this.absolute
@@ -62,9 +62,9 @@ export default {
     },
 
     /**
-         * 样式
-         * @return {Object}
-         */
+     * 样式
+     * @return {Object}
+     */
     styles () {
       return {
         'z-index': this.zIndex,
@@ -91,6 +91,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-mask {
     position: fixed;
     @include absolute-center;

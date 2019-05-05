@@ -65,6 +65,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-badge {
     position: relative;
     vertical-align: middle;

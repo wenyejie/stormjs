@@ -154,9 +154,11 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-tree-item {
     line-height: 36px;
     position: relative;
+
     &-triangle {
       border: none;
       background: none;

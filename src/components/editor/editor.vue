@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { quillEditor, Quill } from 'vue-quill-editor'
+import { Quill, quillEditor } from 'vue-quill-editor'
 import { ImageExtend, QuillWatch } from 'quill-image-extend-module'
 import 'quill/dist/quill.core.css'
 import './snow.css'
@@ -201,6 +201,7 @@ export default {
       border-color: #ddd;
     }
   }
+
   .ql-container {
     flex: 1;
   }

@@ -18,7 +18,9 @@
       @click.stop="handleClick($event)"
       @change="handleChange($event)">
     <span class="s-radio-indi" />
-    <span class="s-radio-desc"><slot /></span>
+    <span class="s-radio-desc">
+      <slot />
+    </span>
   </label>
 </template>
 
@@ -139,25 +141,31 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-radio {
     position: relative;
     display: inline-block;
+
     & + & {
       margin-left: 12px;
     }
+
     & + &-block {
       margin-left: 0;
     }
+
     &-input {
       position: absolute;
       z-index: -1;
       opacity: 0;
     }
+
     &-indi,
     &-desc {
       display: inline-block;
       vertical-align: middle;
     }
+
     &-indi {
       pointer-events: none;
       user-select: none;
@@ -167,10 +175,12 @@ export default {
       border-radius: 50%;
       transition: all .3s ease;
     }
+
     &-input:checked + &-indi {
       border-color: $primary;
       background-color: $primary;
       position: relative;
+
       &:before {
         width: .3em;
         height: .3em;
@@ -183,9 +193,11 @@ export default {
         transform: translate(-50%, -50%);
       }
     }
+
     &-desc {
       margin-left: 8px;
     }
+
     &-block {
       display: block;
     }

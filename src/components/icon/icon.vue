@@ -79,6 +79,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-icon {
     font-family: "iconfont" !important;
     font-style: normal;

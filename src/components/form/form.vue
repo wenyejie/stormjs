@@ -94,10 +94,10 @@ export default {
     },
 
     /**
-         * 变更表单验证结果
-         * @param itemResult 验证结果
-         * @param type 类型, 1:formItem, 2:input
-         */
+     * 变更表单验证结果
+     * @param itemResult 验证结果
+     * @param type 类型, 1:formItem, 2:input
+     */
     handleValidate (itemResult, type) {
       const result = this.innerVal
 

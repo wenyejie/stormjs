@@ -206,13 +206,16 @@ export default {
     line-height: 30px;
     color: #aaa;
   }
+
   .align {
     height: 100px;
   }
+
   .s-row {
     border: 1px solid rgba(0, 0, 0, .15);
     margin-bottom: 24px;
   }
+
   .s-col {
     background-color: rgba(86, 61, 124, .15);
     border: 1px solid rgba(86, 61, 124, .2);

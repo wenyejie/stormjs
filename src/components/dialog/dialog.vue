@@ -284,6 +284,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-dialog {
     position: fixed;
     @include absolute-center;
@@ -368,6 +369,7 @@ export default {
 
     &-btn {
       min-width: 96px;
+
       & + .s-dialog-btn {
         margin-left: 16px;
       }

@@ -87,8 +87,8 @@ export default {
   },
   methods: {
     /**
-         * 自动高度
-         */
+     * 自动高度
+     */
     handleAutoRows () {
       if (!this.autoRows) return
       this.height = adaptiveHeight(this.$el, this.autoRows)
@@ -123,6 +123,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-textarea {
     position: relative;
     display: inline-block;

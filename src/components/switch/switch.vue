@@ -20,6 +20,7 @@
 
 <script>
 import formElementMixins from '../../mixins/formElementMixin'
+
 export default {
   name: 'SSwitch',
   mixins: [formElementMixins],
@@ -104,6 +105,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-switch {
     position: relative;
     display: inline-block;

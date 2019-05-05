@@ -56,12 +56,8 @@ export default {
       iconFont: ['dianhuax', 'dingdingx', 'weixinx']
     }
   },
-  computed: {
-
-  },
-  methods: {
-
-  }
+  computed: {},
+  methods: {}
 }
 </script>
 
@@ -71,7 +67,8 @@ export default {
     // justify-content: center;
     align-items: center;
     padding: 0 2px;
-    >a,span {
+
+    > a, span {
       display: flex;
       align-items: center;
     }

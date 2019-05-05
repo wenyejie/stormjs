@@ -52,9 +52,9 @@ export default {
   },
   computed: {
     /**
-         * 头部是否可见
-         * @return {boolean}
-         */
+     * 头部是否可见
+     * @return {boolean}
+     */
     headerVisible () {
       return this.hasHeader === undefined ? (!!this.$slots.header || !!this.$slots.title || !!this.title) : this.hasHeader
     },
@@ -74,6 +74,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-panel {
     border-radius: 4px;
     background-color: #fff;

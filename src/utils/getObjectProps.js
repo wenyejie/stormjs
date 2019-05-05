@@ -6,6 +6,7 @@
  */
 
 import isObject from './isObject'
+
 export default (obj, ...keys) => {
   const result = {}
   if (!isObject(obj)) return result

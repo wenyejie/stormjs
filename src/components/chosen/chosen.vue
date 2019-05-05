@@ -20,7 +20,8 @@
         <li
           v-if="placeholder"
           v-show="selectedList.length === 0"
-          class="s-chosen-placeholder">{{ placeholder }}</li>
+          class="s-chosen-placeholder">{{ placeholder }}
+        </li>
       </ul>
     </div>
     <s-dropdown

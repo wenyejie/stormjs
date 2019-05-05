@@ -160,6 +160,7 @@ export default {
 
 <style lang="scss">
   @import "../styles/variable.scss";
+
   .login {
     background-image: linear-gradient(224deg, #3583f4 0%, #3213a7 100%);
     min-height: 100vh;

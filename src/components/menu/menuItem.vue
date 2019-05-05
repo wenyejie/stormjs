@@ -18,7 +18,9 @@
           :type="icon"
           class="s-menu-icon" />
       </slot>
-      <span class="s-menu-title"><slot name="title">{{ title }}</slot></span>
+      <span class="s-menu-title">
+        <slot name="title">{{ title }}</slot>
+      </span>
       <s-icon
         v-if="!name"
         :class="visible === 1 ? 'active' : ''"
@@ -130,6 +132,7 @@ export default {
         .s-menu-arrow {
           transform: rotateX(180deg);
         }
+
         .s-submenu {
           display: block;
         }

@@ -139,6 +139,7 @@ export default {
     padding: 1px;
     overflow: hidden;
     vertical-align: top;
+
     .dragIcon {
       z-index: 11;
       cursor: move !important;
@@ -146,24 +147,28 @@ export default {
       height: 12px;
       width: 12px;
       position: absolute;
+
       &.rightBottom {
         cursor: nw-resize;
         bottom: 0;
         right: 0;
-        border-bottom: 2px solid #0FACF3;
-        border-right: 2px solid #0FACF3;
+        border-bottom: 2px solid #0facf3;
+        border-right: 2px solid #0facf3;
       }
+
       &.hide {
         display: none;
       }
     }
+
     .dragContent {
       width: 100%;
       height: 100%;
       position: relative;
     }
+
     &.active {
-      border: 1px solid #0FACF3;
+      border: 1px solid #0facf3;
     }
   }
 </style>

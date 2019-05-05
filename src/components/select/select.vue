@@ -22,6 +22,7 @@
 
 <script>
 import formElementMixins from '../../mixins/formElementMixin'
+
 export default {
   name: 'SSelect',
   mixins: [formElementMixins],
@@ -78,6 +79,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-select {
     display: inline-block;
     vertical-align: middle;

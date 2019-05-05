@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
- .s-datetimeRngPicker {
+  .s-datetimeRngPicker {
 
- }
+  }
 </style>

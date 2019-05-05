@@ -132,6 +132,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/datetime.scss";
+
   .s-datetime-table.year {
     td {
       padding: 16px 0;

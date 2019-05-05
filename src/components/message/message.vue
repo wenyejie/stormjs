@@ -101,8 +101,8 @@ export default {
   methods: {
 
     /**
-         * 展示消息提示
-         */
+     * 展示消息提示
+     */
     show () {
       this.visible = true
       this.$emit('input', true)
@@ -114,16 +114,16 @@ export default {
     },
 
     /**
-         * 移除消息提示
-         */
+     * 移除消息提示
+     */
     remove () {
       this.visible = false
       this.$emit('input', false)
     },
 
     /**
-         * 移除消息提示
-         */
+     * 移除消息提示
+     */
     handleClose () {
       this.remove()
     }
@@ -133,6 +133,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-message {
     position: fixed;
     z-index: 2018;
@@ -181,6 +182,7 @@ export default {
 
     &-success {
       border-left-color: #48c673;
+
       .s-message-icon {
         color: #48c673;
       }
@@ -194,6 +196,7 @@ export default {
 
     &-warning {
       border-left-color: #f35b80;
+
       .s-message-icon {
         color: #f35b80;
       }
@@ -201,6 +204,7 @@ export default {
 
     &-danger {
       border-left-color: #f35b80;
+
       .s-message-icon {
         color: #f35b80;
       }

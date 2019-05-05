@@ -17,10 +17,11 @@
             class="searchIcon" />
           <s-input
             v-model="searchValue"
-            @keydown.enter='search'/>
+            @keydown.enter='search' />
           <s-button
             type="info"
-            @click="search">搜索</s-button>
+            @click="search">搜索
+          </s-button>
         </div>
         <ul class="origin">
           <li
@@ -35,7 +36,7 @@
       </div>
     </li>
     <li class="transferIcon">
-      <s-icon type="iconshouqijiantoux"/>
+      <s-icon type="iconshouqijiantoux" />
     </li>
     <li class="transferList">
       <h4>已选择({{ selectData.length }})</h4>
@@ -83,9 +84,7 @@ export default {
       searchValue: ''
     }
   },
-  computed: {
-
-  },
+  computed: {},
   watch: {
     originValue (newValue, oldValue) {
       this.backupOri = [...newValue]
@@ -155,23 +154,28 @@ export default {
   .transferBox {
     display: flex;
     justify-content: space-between;
-    >li {
+
+    > li {
       height: 100%;
-      >h4 {
+
+      > h4 {
         padding: 12px 0;
         font-size: 14px;
-        color: #888888;
+        color: #888;
       }
+
       .transferContent {
         flex: 1;
-        border: 1px solid #DDDDDD;
+        border: 1px solid #ddd;
         border-radius: 3px;
         padding: 16px 24px;
         overflow: hidden;
+
         .transferSearch {
           margin-bottom: 8px;
           position: relative;
           display: flex;
+
           .searchIcon {
             position: absolute;
             font-size: 20px;
@@ -179,49 +183,60 @@ export default {
             left: 5px;
             top: 10px;
           }
-          >.s-input {
+
+          > .s-input {
             flex: 1;
             display: inline-block;
             box-sizing: border-box;
-            >.s-input-inner {
+
+            > .s-input-inner {
               box-sizing: border-box;
               padding-left: 25px;
             }
           }
         }
-        >ul {
+
+        > ul {
           height: 100%;
           overflow-y: auto;
-          &::-webkit-scrollbar{
+
+          &::-webkit-scrollbar {
             display: none;
           }
-          >li {
+
+          > li {
             display: flex;
             align-items: center;
             height: 48px;
             overflow: hidden;
           }
+
           &.origin {
             padding-bottom: 20px;
-            >li {
+
+            > li {
               overflow: hidden;
               cursor: pointer;
             }
           }
+
           &.select {
-            >li {
+            > li {
               justify-content: space-between;
-              >p {
+
+              > p {
                 display: flex;
                 align-items: center;
               }
-              >span {
+
+              > span {
                 cursor: pointer;
                 width: 30px;
                 text-align: center;
               }
             }
           }
+
           .symbol {
             display: flex;
             text-align: center;
@@ -231,19 +246,21 @@ export default {
             height: 24px;
             width: 24px;
             border-radius: 50%;
-            background-color: #6884F3;
-            color: #FFFFFF;
+            background-color: #6884f3;
+            color: #fff;
             margin-right: 8px;
           }
         }
       }
     }
-    >.transferList {
+
+    > .transferList {
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-    >.transferIcon {
+
+    > .transferIcon {
       width: 32px;
       display: flex;
       justify-content: center;

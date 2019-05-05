@@ -105,6 +105,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-form {
     &-item {
       position: relative;

@@ -118,8 +118,8 @@ export default {
   methods: {
 
     /**
-         * 展示消息提示
-         */
+     * 展示消息提示
+     */
     show () {
       this.visible = true
       this.$emit('input', true)
@@ -131,16 +131,16 @@ export default {
     },
 
     /**
-         * 移除消息提示
-         */
+     * 移除消息提示
+     */
     remove () {
       this.visible = false
       this.$emit('input', false)
     },
 
     /**
-         * 移除消息提示
-         */
+     * 移除消息提示
+     */
     handleClose () {
       this.remove()
     }
@@ -150,6 +150,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-notice {
     position: fixed;
     top: 24px;

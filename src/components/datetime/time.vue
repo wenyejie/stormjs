@@ -142,6 +142,7 @@ export default {
 
 <style lang="scss">
   @import "../../styles/variable.scss";
+
   .s-time {
     /*width: 180px;*/
     /*margin: 7px 0 0;*/

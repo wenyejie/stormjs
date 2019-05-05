@@ -65,8 +65,8 @@ export default {
     },
 
     /**
-         * 退出登录
-         */
+     * 退出登录
+     */
     handleLogout () {
       if (this.loading === 1) return
       this.loading = 1
@@ -111,6 +111,7 @@ export default {
 
       .s-icon {
         transition: transform .3s ease-in-out;
+
         &.hidden {
           transform: rotate(-180deg);
         }

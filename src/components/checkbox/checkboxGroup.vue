@@ -6,7 +6,9 @@
  -->
 
 <template>
-  <div class="s-checkbox-group"><slot /></div>
+  <div class="s-checkbox-group">
+    <slot />
+  </div>
 </template>
 
 <script>
@@ -26,10 +28,10 @@ export default {
   },
   methods: {
     /**
-         * 更新group的值
-         * @param checked 是否选中
-         * @param value 选中的值
-         */
+     * 更新group的值
+     * @param checked 是否选中
+     * @param value 选中的值
+     */
     update (checked, value) {
       if (checked) {
         this.innerVal.push(value)

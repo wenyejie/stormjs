@@ -6,11 +6,14 @@
  -->
 
 <template>
-  <div class="s-radio-group"><slot /></div>
+  <div class="s-radio-group">
+    <slot />
+  </div>
 </template>
 
 <script>
 import formElementMixins from '../../mixins/formElementMixin'
+
 export default {
   name: 'SRadioGroup',
   mixins: [formElementMixins],

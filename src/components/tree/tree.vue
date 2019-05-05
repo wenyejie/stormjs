@@ -104,10 +104,12 @@ export default {
       .s-tree-item-content {
         padding-left: 15px;
       }
+
       & .s-tree {
         .s-tree-item-content {
           padding-left: 30px;
         }
+
         & .s-tree {
           .s-tree-item-content {
             padding-left: 45px;
