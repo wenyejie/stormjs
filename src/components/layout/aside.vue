@@ -47,7 +47,7 @@
 <script>
 import navigates from '../../datas/navigates'
 import { sUserPermission } from '../../storages/'
-import encodeURI from '../../utils/encodeURI'
+// import encodeURI from '../../utils/encodeURI'
 
 export default {
   name: 'SAside',
@@ -64,15 +64,15 @@ export default {
     }
   },
   created () {
-    if (!Array.isArray(this.permission) || typeof this.permission[0] !== 'string') {
-      this.$router.push({
-        name: 'rLogin',
-        query: {
-          redirect: encodeURI(this.$route.fullPath)
-        }
-      })
-      return
-    }
+    // if (!Array.isArray(this.permission) || typeof this.permission[0] !== 'string') {
+    //   this.$router.push({
+    //     name: 'rLogin',
+    //     query: {
+    //       redirect: encodeURI(this.$route.fullPath)
+    //     }
+    //   })
+    //   return
+    // }
     this.init()
   },
   methods: {

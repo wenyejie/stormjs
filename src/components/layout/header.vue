@@ -55,7 +55,7 @@ export default {
     }
   },
   created () {
-    this.userInfo = sUserInfo()
+    this.userInfo = sUserInfo() || {}
   },
   methods: {
 

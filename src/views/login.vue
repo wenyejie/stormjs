@@ -79,10 +79,11 @@
 </template>
 
 <script>
-import login from '../apis/login'
-import md5 from '../cores/md5'
-import { sLoginInfo, sUserInfo, sUserPermission } from '../storages'
-import decodeURI from '../utils/decodeURI'
+// import login from '../apis/login'
+// import md5 from '../cores/md5'
+// , sUserInfo, sUserPermission
+import { sLoginInfo } from '../storages'
+// import decodeURI from '../utils/decodeURI'
 
 export default {
   name: 'VLogin',
@@ -113,44 +114,45 @@ export default {
   methods: {
     handleSubmit () {
       if (this.loginV.$invalid || this.logging === 1) return
-      this.logging = 1
-      const params = Object.assign({}, this.login)
-      if (!this.loginInfo || this.loginInfo.password !== params.password) {
-        params.password = md5(params.password)
-      }
-      login(params)
-        .then((response) => {
-          this.logging = 2
-          // 记住/移除登录名
-          sLoginInfo(this.rememberMe ? params : null)
-
-          const permission = []
-          response.funList.forEach(item => {
-            permission.push(item.funCode)
-            item.childFunList && item.childFunList.forEach(item => {
-              permission.push(item.funCode)
-            })
-          })
-
-          delete response.funList
-
-          // 保存用户权限
-          sUserPermission(permission)
-
-          // 保存用户信息
-          sUserInfo(response)
-
-          this.$root.userInfo = response
-
-          // 当有重定向地址时, 跳至重定向地址
-          if (this.redirect) {
-            location.href = decodeURI(this.redirect)
-          } else {
-            this.$router.push('/')
-          }
-        }, () => {
-          this.logging = 3
-        })
+      this.$router.push('/')
+      // this.logging = 1
+      // const params = Object.assign({}, this.login)
+      // if (!this.loginInfo || this.loginInfo.password !== params.password) {
+      //   params.password = md5(params.password)
+      // }
+      // login(params)
+      //   .then((response) => {
+      //     this.logging = 2
+      //     // 记住/移除登录名
+      //     sLoginInfo(this.rememberMe ? params : null)
+      //
+      //     const permission = []
+      //     response.funList.forEach(item => {
+      //       permission.push(item.funCode)
+      //       item.childFunList && item.childFunList.forEach(item => {
+      //         permission.push(item.funCode)
+      //       })
+      //     })
+      //
+      //     delete response.funList
+      //
+      //     // 保存用户权限
+      //     sUserPermission(permission)
+      //
+      //     // 保存用户信息
+      //     sUserInfo(response)
+      //
+      //     this.$root.userInfo = response
+      //
+      //     // 当有重定向地址时, 跳至重定向地址
+      //     if (this.redirect) {
+      //       location.href = decodeURI(this.redirect)
+      //     } else {
+      //       this.$router.push('/')
+      //     }
+      //   }, () => {
+      //     this.logging = 3
+      //   })
     }
   }
 }

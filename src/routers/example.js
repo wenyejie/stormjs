@@ -5,7 +5,7 @@
  * @date: 2018/11/14
  */
 
-import Main from '../views/example/Main.vue'
+import Main from '../views/example/main.vue'
 
 export default {
   name: 'example',
@@ -16,7 +16,7 @@ export default {
     {
       name: 'exampleInput',
       path: 'input',
-      component: () => import('../views/example/Input.vue')
+      component: () => import('../views/example/input.vue')
     },
     {
       name: 'exampleCrud',
