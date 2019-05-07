@@ -7,19 +7,18 @@
 <template>
   <s-layout>
     <!--<s-upload>上传</s-upload>-->
-    <template slot="left">
-      测试
-    </template>
-    <s-transfer
+    <!--<s-transfer
       class="box"
       :origin-value="userList"
       :select-value="[]"
       filter-key="name"
       @changeSelect="getSelectData" />
+    <s-date-picker />-->
   </s-layout>
 </template>
 
 <script>
+
 export default {
   name: 'VDemo',
   data () {
@@ -40,21 +39,21 @@ export default {
     this.init()
   },
   mounted () {
-    setTimeout(() => {
-      let userList = []
-      let familyName = ['赵', '钱', '孙', '李', '周', '吴', '郑', '王', '张']
-      let secondName = ['依霜', '紫薇', '瑜然', '新霁', '迎天', '哲彦', '宏邈', '念文', '辰君', '令璟']
-      let job = ['前端开发', 'JAVA开发', '数据库开发', 'UI']
-      for (let i = 0; i < 20; i++) {
-        userList.push({
-          id: i,
-          name: familyName[Math.ceil(Math.random() * 8)] + secondName[Math.ceil(Math.random() * 9)],
-          job: job[Math.ceil(Math.random() * 3)]
-        })
-      }
-      this.userList = [...userList]
-      console.log(userList)
-    }, 500)
+    // setTimeout(() => {
+    //   let userList = []
+    //   let familyName = ['赵', '钱', '孙', '李', '周', '吴', '郑', '王', '张']
+    //   let secondName = ['依霜', '紫薇', '瑜然', '新霁', '迎天', '哲彦', '宏邈', '念文', '辰君', '令璟']
+    //   let job = ['前端开发', 'JAVA开发', '数据库开发', 'UI']
+    //   for (let i = 0; i < 20; i++) {
+    //     userList.push({
+    //       id: i,
+    //       name: familyName[Math.ceil(Math.random() * 8)] + secondName[Math.ceil(Math.random() * 9)],
+    //       job: job[Math.ceil(Math.random() * 3)]
+    //     })
+    //   }
+    //   this.userList = [...userList]
+    //   console.log(userList)
+    // }, 500)
   },
   methods: {
     init () {

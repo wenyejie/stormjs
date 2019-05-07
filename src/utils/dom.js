@@ -27,7 +27,25 @@ export const removeClass = (target, className) => {
   target.classList.remove(className)
 }
 
+/**
+ * 增加监听器
+ * @param target 目标
+ * @param eventName 时间名称
+ * @param callback 回调
+ * @param options 选项
+ */
 export const on = (target, eventName, callback, options) => {
   if (!isElement(target)) return
   target.addEventListener(eventName, callback, options)
+}
+
+/**
+ * 移除监听器
+ * @param target 目标
+ * @param eventName 事件名称
+ * @param callback 回调
+ */
+export const off = (target, eventName, callback) => {
+  if (!isElement(target)) return
+  target.removeEventListener(eventName, callback)
 }
