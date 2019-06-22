@@ -26,7 +26,12 @@ module.exports = {
     // css
     modules: false,
     sourceMap: isDev,
-    extract: false
+    extract: false,
+    loaderOptions: {
+      sass: {
+        data: '@import "@/styles/variables.scss";'
+      }
+    }
   },
 
   lintOnSave: 'error',
