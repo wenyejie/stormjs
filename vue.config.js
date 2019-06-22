@@ -1,10 +1,9 @@
 const Webpack = require('webpack')
-
+const mock = require('./mock/index')
 const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
   runtimeCompiler: true,
-
   configureWebpack: {
     plugins: [
       new Webpack.ProvidePlugin({
@@ -38,6 +37,9 @@ module.exports = {
 
   devServer: {
     port: 8889,
+    before (app) {
+      mock.init(app)
+    },
     proxy: {
       '/api': {
         target: 'http://test.zhiqicloud.com:8770/',

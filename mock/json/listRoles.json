@@ -1,0 +1,26 @@
+{
+  "transactionStatus": {
+    "errorCode": "0",
+    "replyText": null,
+    "success": true
+  },
+  "data": [
+    {
+      "roleId": 1,
+      "name": "管理员"
+    },
+    {
+      "roleId": 2,
+      "name": "系统管理员"
+    },
+    {
+      "roleId": 3,
+      "name": "权限管理员"
+    }
+  ],
+  "page": {
+    "pageSize": 30,
+    "pageNum": 1,
+    "count": 20
+  }
+}
