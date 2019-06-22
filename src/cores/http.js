@@ -7,9 +7,8 @@
 
 import Vue from 'vue'
 import axios from 'axios'
+import { stringify } from 'qs'
 import encodeURI from '../utils/encodeURI'
-
-let serialize
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_REQUEST_URL,
@@ -19,43 +18,20 @@ const instance = axios.create({
     'Content-Type': 'application/x-www-form-urlencoded',
     'X-zq-from-app': process.env.VUE_APP_X_ZQ_FROM_APP
   },
-  transformRequest: [(data) => {
+  transformRequest: [(data, headers) => {
+    const serialize = headers['Content-Type'] === 'application/x-www-form-urlencoded'
     if (!(data instanceof Object) || (data instanceof FormData)) return data
-    if (serialize === false) {
+    if (!serialize) {
       return JSON.stringify(data)
     }
-    let ret = ''
-    for (let it in data) {
-      if (!data.hasOwnProperty(it) || data[it] === undefined || data[it] === null || Number.isNaN(data[it])) continue
-      if (serialize === false) {
-        ret += data[it]
-        continue
-      }
-      ret += encodeURI(it) + '='
-      switch (typeof data[it]) {
-        case 'object':
-          ret += encodeURI(JSON.stringify(data[it]))
-          break
-        case 'string':
-          ret += encodeURI(data[it])
-          break
-        default:
-          ret += data[it]
-          break
-      }
-      ret += '&'
-    }
-    ret = ret.replace(/&$/, '')
-    return ret
+    return stringify(data)
   }]
 })
 
 // 请求拦截器
 instance.interceptors.request.use((config = {}) => {
-  serialize = config.serialize
   if (config.json) {
     config.headers['Content-Type'] = 'application/json'
-    serialize = false
   }
   return config
 }, error => {
